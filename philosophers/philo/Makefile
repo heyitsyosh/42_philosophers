@@ -1,0 +1,26 @@
+NAME = philo
+
+FILES = main\
+		convert_input\
+		atoi
+SRCS = $(foreach src,$(FILES),./srcs/$(src).c)
+OBJS = $(SRCS:.c=.o)
+
+CFLAGS = -Wall -Wextra -Werror -I ./includes
+
+#--------------------------------------------------------------------------#
+
+all: $(NAME)
+
+$(NAME): $(OBJS)
+	$(CC) $(CFLAGS) -o $@ $(OBJS)
+
+clean:
+	$(RM) $(OBJS) $(B_OBJS)
+
+fclean: clean
+	$(RM) $(NAME)
+
+re: fclean all
+
+.PHONY: all clean fclean re
