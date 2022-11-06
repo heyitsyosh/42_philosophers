@@ -1,44 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   philosopher.c                                      :+:      :+:    :+:   */
+/*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: myoshika <myoshika@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/11/03 23:29:10 by myoshika          #+#    #+#             */
-/*   Updated: 2022/11/06 23:23:33 by myoshika         ###   ########.fr       */
+/*   Created: 2022/11/06 19:48:58 by myoshika          #+#    #+#             */
+/*   Updated: 2022/11/06 19:56:47 by myoshika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-static void	eat(t_philo *philo, t_info *i)
+long	time_in_ms(void)
 {
-	
+	struct timeval	tv;
+
+	gettimeofday(&tv, NULL);
+	return ((tv.tv_sec) * 1000 + (tv.tv_usec) / 1000);
 }
 
-static void	think(t_philo *philo, t_info *i)
+long	timestamp(t_info *i)
 {
-	
-}
-
-static void	sleep(t_philo *philo, t_info *i)
-{
-	
-}
-
-void	*life(void *p)
-{
-	t_philo	*philo;
-	t_info	*i;
-
-	philo = (t_philo *)p;
-	i = (t_info *)i;
-	while (1)
-	{
-		eat(p, i);
-		think(p, i);
-		sleep(p, i);
-	}
-	return (NULL);
+	return (i->start_time - time_in_ms());
 }
