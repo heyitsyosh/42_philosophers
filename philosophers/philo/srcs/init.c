@@ -6,7 +6,7 @@
 /*   By: myoshika <myoshika@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/06 23:15:45 by myoshika          #+#    #+#             */
-/*   Updated: 2022/11/07 20:50:24 by myoshika         ###   ########.fr       */
+/*   Updated: 2022/11/07 23:55:27 by myoshika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,13 +18,13 @@ static void	init_philo(t_philo *philo, t_info *i, int j)
 	philo->id = j + 1;
 	philo->left_fork = j;
 	philo->right_fork = j + 1;
-	if (j == i->num_of_philosophers - 1)
+	if (j + 1 == i->num_of_philosophers)
 		philo->right_fork = 0;
 	philo->meals_eaten = 0;
 	philo->time_of_last_meal = 0;
 }
 
-void	make_philos(t_philo *philos, t_info *i)
+int	make_philos(t_philo *philos, t_info *i)
 {
 	int	j;
 
@@ -33,12 +33,24 @@ void	make_philos(t_philo *philos, t_info *i)
 	while (j < i->num_of_philosophers)
 	{
 		init_philo(philos, i, j);
-		if (pthread_create(&philos[j].tid, NULL, life, &philos[j]) != 0)
+		if (pthread_create(&philos[j]->tid, NULL, life, &philos[j]) != 0)
 		{
 			printf("failed to create thread\n");
-			return ;
+			return (j);
 		}
-		pthread_join(philos[j++].tid, NULL);
+		j++;
+	}
+	return (j);
+}
+
+void	join_philos(t_philo *philos, t_info *i)
+{
+	while (i->threads_created-- > 0)
+	{
+		printf("[%d]", i->threads_created);
+		fflush(stdout);
+		if (pthread_join(philos[i->threads_created].tid, NULL) != 0)
+			printf("failed to join thread\n");
 	}
 }
 

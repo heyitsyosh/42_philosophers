@@ -6,7 +6,7 @@
 /*   By: myoshika <myoshika@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/09 19:04:13 by myoshika          #+#    #+#             */
-/*   Updated: 2022/11/07 20:39:08 by myoshika         ###   ########.fr       */
+/*   Updated: 2022/11/07 22:54:32 by myoshika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,7 @@ int	main(int argc, char **argv)
 	}
 	if (!make_forks_and_mutex(philos, &i))
 		return (1);
-	make_philos(philos, &i);
+	i.threads_created = make_philos(philos, &i);
+	join_philos(philos, &i);
 	deinitialize(i.num_of_philosophers, philos, &i);
 }

@@ -6,7 +6,7 @@
 /*   By: myoshika <myoshika@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/09 18:43:19 by myoshika          #+#    #+#             */
-/*   Updated: 2022/11/07 20:33:30 by myoshika         ###   ########.fr       */
+/*   Updated: 2022/11/07 22:54:09 by myoshika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,7 @@ typedef struct s_info{
 	bool			should_exit;
 	pthread_mutex_t	*forks;
 	pthread_mutex_t	print;
+	int				threads_created;
 	bool			overflow;
 }	t_info;
 
@@ -64,7 +65,8 @@ void	print_action(t_philo *philo, t_info *i, char *action);
 
 t_philo	*malloc_forks_and_philos(t_info *i);
 bool	make_forks_and_mutex(t_philo *philos, t_info *i);
-void	make_philos(t_philo *philos, t_info *i);
+int		make_philos(t_philo *philos, t_info *i);
+void	join_philos(t_philo *philos, t_info *i);
 
 void	*life(void *p);
 
