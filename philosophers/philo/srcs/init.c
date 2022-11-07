@@ -6,21 +6,22 @@
 /*   By: myoshika <myoshika@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/06 23:15:45 by myoshika          #+#    #+#             */
-/*   Updated: 2022/11/06 23:26:39 by myoshika         ###   ########.fr       */
+/*   Updated: 2022/11/07 20:50:24 by myoshika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "philo.h"
+#include "../includes/philo.h"
 
-static void	init_philo(t_philo *philos, t_info *i, int j)
+static void	init_philo(t_philo *philo, t_info *i, int j)
 {
-	philos->i = i;
-	philos->id = j + 1;
-	philos->left_fork = j;
-	philos->right_fork = j + 1;
+	philo->i = i;
+	philo->id = j + 1;
+	philo->left_fork = j;
+	philo->right_fork = j + 1;
 	if (j == i->num_of_philosophers - 1)
-		philos->right_fork = 0;
-	philos->meals_eaten = 0;
+		philo->right_fork = 0;
+	philo->meals_eaten = 0;
+	philo->time_of_last_meal = 0;
 }
 
 void	make_philos(t_philo *philos, t_info *i)
@@ -45,9 +46,9 @@ bool	make_forks_and_mutex(t_philo*philos, t_info *i)
 {
 	int	j;
 
-	if (pthread_mutex_init(&i->forks[j], NULL))
+	if (pthread_mutex_init(&i->print, NULL))
 	{
-		deinitialize(0, philos, i);
+		deinitialize(-1, philos, i);
 		return (false);
 	}
 	j = 0;

@@ -2,7 +2,10 @@ NAME = philo
 
 FILES = main\
 		convert_input\
-		atoi
+		init\
+		philosopher\
+		atoi\
+		utils
 SRCS = $(foreach src,$(FILES),./srcs/$(src).c)
 OBJS = $(SRCS:.c=.o)
 
