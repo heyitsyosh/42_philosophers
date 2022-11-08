@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philo.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: myoshika <myoshika@student.42.fr>          +#+  +:+       +#+        */
+/*   By: myoshika <myoshika@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/09 18:43:19 by myoshika          #+#    #+#             */
-/*   Updated: 2022/11/07 22:54:09 by myoshika         ###   ########.fr       */
+/*   Updated: 2022/11/08 23:32:49 by myoshika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ long	timestamp(t_info *i);
 
 void	print_action(t_philo *philo, t_info *i, char *action);
 
-t_philo	*malloc_forks_and_philos(t_info *i);
+bool	malloc_forks_and_philos(t_philo **philos, t_info *i);
 bool	make_forks_and_mutex(t_philo *philos, t_info *i);
 int		make_philos(t_philo *philos, t_info *i);
 void	join_philos(t_philo *philos, t_info *i);
