@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: myoshika <myoshika@student.42.fr>          +#+  +:+       +#+        */
+/*   By: myoshika <myoshika@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/06 23:15:45 by myoshika          #+#    #+#             */
-/*   Updated: 2022/11/07 23:55:27 by myoshika         ###   ########.fr       */
+/*   Updated: 2022/11/08 23:43:58 by myoshika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,13 +33,18 @@ int	make_philos(t_philo *philos, t_info *i)
 	while (j < i->num_of_philosophers)
 	{
 		init_philo(philos, i, j);
-		if (pthread_create(&philos[j]->tid, NULL, life, &philos[j]) != 0)
+		printf("[philos[j]->meals_eaten = %d]", philos[j].meals_eaten);
+		if (pthread_create(&philos[j].tid, NULL, life, &philos[j]) != 0)
 		{
 			printf("failed to create thread\n");
 			return (j);
 		}
+		printf("[%d]!", j);
+		fflush(stdout);
 		j++;
 	}
+	printf("\n");
+	fflush(stdout);
 	return (j);
 }
 
@@ -54,7 +59,7 @@ void	join_philos(t_philo *philos, t_info *i)
 	}
 }
 
-bool	make_forks_and_mutex(t_philo*philos, t_info *i)
+bool	make_forks_and_mutex(t_philo *philos, t_info *i)
 {
 	int	j;
 
@@ -76,18 +81,16 @@ bool	make_forks_and_mutex(t_philo*philos, t_info *i)
 	return (true);
 }
 
-t_philo	*malloc_forks_and_philos(t_info *i)
+bool	malloc_forks_and_philos(t_philo **philos, t_info *i)
 {
-	t_philo	*philos;
-
-	philos = malloc(sizeof(t_philo) * i->num_of_philosophers);
+	*philos = malloc(sizeof(t_philo) * i->num_of_philosophers);
 	if (!philos)
-		return (NULL);
+		return (false);
 	i->forks = malloc(sizeof(pthread_mutex_t) * i->num_of_philosophers);
 	if (!i->forks)
 	{
-		free(philos);
-		return (NULL);
+		free(*philos);
+		return (false);
 	}
-	return (philos);
+	return (true);
 }

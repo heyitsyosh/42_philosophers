@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: myoshika <myoshika@student.42.fr>          +#+  +:+       +#+        */
+/*   By: myoshika <myoshika@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/09 19:04:13 by myoshika          #+#    #+#             */
-/*   Updated: 2022/11/07 22:54:32 by myoshika         ###   ########.fr       */
+/*   Updated: 2022/11/08 23:30:39 by myoshika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,8 +34,7 @@ int	main(int argc, char **argv)
 		printf("invalid arguments\n");
 		return (0);
 	}
-	philos = malloc_forks_and_philos(&i);
-	if (!philos)
+	if (!malloc_forks_and_philos(&philos, &i))
 	{
 		printf("malloc failure\n");
 		return (1);
