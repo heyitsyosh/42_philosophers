@@ -6,7 +6,7 @@
 /*   By: myoshika <myoshika@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/03 23:29:10 by myoshika          #+#    #+#             */
-/*   Updated: 2022/11/08 23:46:19 by myoshika         ###   ########.fr       */
+/*   Updated: 2022/11/09 09:21:19 by myoshika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,8 +32,6 @@ static bool	eating(t_philo *p, t_info *i)
 	if (!monitor(p, i))
 		return (false);
 	pthread_mutex_lock(&i->forks[p->left_fork]);
-	printf("[id:%d]", p->id);
-	fflush(stdout);
 	print_action(p, i, FORK_MSG);
 	if (!monitor(p, i))
 	{
@@ -75,6 +73,8 @@ void	*life(void *p)
 
 	philo = (t_philo *)p;
 	i = (t_info *)philo->i;
+	if (philo->id % 2 == 0)
+		sleeping(p, i);
 	while (1)
 	{
 		if (!eating(p, i))

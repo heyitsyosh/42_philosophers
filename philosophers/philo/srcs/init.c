@@ -6,7 +6,7 @@
 /*   By: myoshika <myoshika@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/06 23:15:45 by myoshika          #+#    #+#             */
-/*   Updated: 2022/11/08 23:43:58 by myoshika         ###   ########.fr       */
+/*   Updated: 2022/11/09 06:59:15 by myoshika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,19 +32,14 @@ int	make_philos(t_philo *philos, t_info *i)
 	i->start_time = time_in_ms();
 	while (j < i->num_of_philosophers)
 	{
-		init_philo(philos, i, j);
-		printf("[philos[j]->meals_eaten = %d]", philos[j].meals_eaten);
+		init_philo(&philos[j], i, j);
 		if (pthread_create(&philos[j].tid, NULL, life, &philos[j]) != 0)
 		{
 			printf("failed to create thread\n");
 			return (j);
 		}
-		printf("[%d]!", j);
-		fflush(stdout);
 		j++;
 	}
-	printf("\n");
-	fflush(stdout);
 	return (j);
 }
 
@@ -52,8 +47,6 @@ void	join_philos(t_philo *philos, t_info *i)
 {
 	while (i->threads_created-- > 0)
 	{
-		printf("[%d]", i->threads_created);
-		fflush(stdout);
 		if (pthread_join(philos[i->threads_created].tid, NULL) != 0)
 			printf("failed to join thread\n");
 	}
