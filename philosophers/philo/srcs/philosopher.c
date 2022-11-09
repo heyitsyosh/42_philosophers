@@ -6,7 +6,7 @@
 /*   By: myoshika <myoshika@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/03 23:29:10 by myoshika          #+#    #+#             */
-/*   Updated: 2022/11/09 14:50:56 by myoshika         ###   ########.fr       */
+/*   Updated: 2022/11/09 16:03:04 by myoshika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ static bool	monitor(t_philo *p, t_info *i)
 {
 	if (p->id == i->num_of_philosophers)
 		if (p->meals_eaten == i->meals_to_eat)
-		i->should_exit = true;
+			i->should_exit = true;
 	if (i->should_exit)
 		return (false);
 	if (timestamp(p) - p->time_of_last_meal >= i->time_to_die)
