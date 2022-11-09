@@ -6,7 +6,7 @@
 /*   By: myoshika <myoshika@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/09 19:04:13 by myoshika          #+#    #+#             */
-/*   Updated: 2022/11/08 23:30:39 by myoshika         ###   ########.fr       */
+/*   Updated: 2022/11/09 14:29:23 by myoshika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ void	deinitialize(int forks_to_destroy, t_philo *philos, t_info *i)
 		printf("failed to initialize mutex\n");
 	if (forks_to_destroy > -1)
 		pthread_mutex_destroy(&i->print);
-	while (forks_to_destroy-- >= 0)
+	while (forks_to_destroy-- > 0)
 		pthread_mutex_destroy(&i->forks[forks_to_destroy]);
 	free(i->forks);
 	free(philos);

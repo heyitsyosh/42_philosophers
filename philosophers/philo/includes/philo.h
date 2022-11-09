@@ -6,7 +6,7 @@
 /*   By: myoshika <myoshika@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/09 18:43:19 by myoshika          #+#    #+#             */
-/*   Updated: 2022/11/08 23:32:49 by myoshika         ###   ########.fr       */
+/*   Updated: 2022/11/09 14:19:02 by myoshika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,10 +35,10 @@ typedef struct s_info{
 	long			time_to_sleep;
 	long			time_to_think;
 	int				meals_to_eat;
-	long			start_time;
 	bool			should_exit;
 	pthread_mutex_t	*forks;
 	pthread_mutex_t	print;
+	pthread_mutex_t	no_interruption;
 	int				threads_created;
 	bool			overflow;
 }	t_info;
@@ -50,6 +50,7 @@ typedef struct s_philo{
 	int			left_fork;
 	int			right_fork;
 	int			meals_eaten;
+	long		start_time;
 	long		time_of_last_meal;
 }	t_philo;
 
@@ -59,8 +60,9 @@ int		philo_atoi(const char *str, t_info *p);
 int		ft_strcmp(const char *s1, const char *s2);
 
 long	time_in_ms(void);
-long	timestamp(t_info *i);
+long	timestamp(t_philo *philo);
 
+void	precise_sleep(long target_time, t_philo *p);
 void	print_action(t_philo *philo, t_info *i, char *action);
 
 bool	malloc_forks_and_philos(t_philo **philos, t_info *i);
