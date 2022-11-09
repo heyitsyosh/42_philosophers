@@ -6,7 +6,7 @@
 /*   By: myoshika <myoshika@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/06 19:48:58 by myoshika          #+#    #+#             */
-/*   Updated: 2022/11/09 09:20:03 by myoshika         ###   ########.fr       */
+/*   Updated: 2022/11/09 14:32:29 by myoshika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,15 +20,28 @@ long	time_in_ms(void)
 	return ((tv.tv_sec) * 1000 + (tv.tv_usec) / 1000);
 }
 
-long	timestamp(t_info *i)
+long	timestamp(t_philo *philo)
 {
-	return (time_in_ms() - i->start_time);
+	return (time_in_ms() - philo->start_time);
 }
+
+// void	precise_sleep(long target_time, t_philo *p)
+// {
+// 	long	start_time;
+
+// 	start_time = timestamp(p);
+// 	while (1)
+// 	{
+// 		if (timestamp(p) - start_time >= target_time)
+// 			break ;
+// 		usleep(1); //micro,usec; microsecond > millisecond
+// 	}
+// }
 
 void	print_action(t_philo *philo, t_info *i, char *action)
 {
 	pthread_mutex_lock(&i->print);
-	printf("%ld %d %s\n", timestamp(i), philo->id, action);
+	printf("%ld %d %s\n", timestamp(philo), philo->id, action);
 	pthread_mutex_unlock(&i->print);
 }
 
