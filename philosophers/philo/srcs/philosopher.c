@@ -6,7 +6,7 @@
 /*   By: myoshika <myoshika@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/03 23:29:10 by myoshika          #+#    #+#             */
-/*   Updated: 2022/11/10 16:31:28 by myoshika         ###   ########.fr       */
+/*   Updated: 2022/11/10 20:01:45 by myoshika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,7 +87,10 @@ void	*life(void *p)
 	philo->start_time = time_in_ms();
 	philo->time_of_last_meal = philo->start_time;
 	if (philo->id % 2 == 0)
+	{
 		thinking(p, i);
+		usleep(200);
+	}
 	while (1)
 	{
 		if (!eating(p, i))
