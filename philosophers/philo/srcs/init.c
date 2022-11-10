@@ -6,7 +6,7 @@
 /*   By: myoshika <myoshika@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/06 23:15:45 by myoshika          #+#    #+#             */
-/*   Updated: 2022/11/09 14:50:42 by myoshika         ###   ########.fr       */
+/*   Updated: 2022/11/10 16:22:30 by myoshika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,6 @@ static void	init_philo(t_philo *philo, t_info *i, int j)
 	if (j + 1 == i->num_of_philosophers)
 		philo->right_fork = 0;
 	philo->meals_eaten = 0;
-	philo->time_of_last_meal = philo->start_time;
 }
 
 int	make_philos(t_philo *philos, t_info *i)
@@ -58,6 +57,11 @@ bool	make_forks_and_mutex(t_philo *philos, t_info *i)
 	if (pthread_mutex_init(&i->print, NULL))
 	{
 		deinitialize(-1, philos, i);
+		return (false);
+	}
+	if (pthread_mutex_init(&i->monitor, NULL))
+	{
+		deinitialize(-2, philos, i);
 		return (false);
 	}
 	j = 0;

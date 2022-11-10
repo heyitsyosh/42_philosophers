@@ -6,7 +6,7 @@
 /*   By: myoshika <myoshika@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/09 18:43:19 by myoshika          #+#    #+#             */
-/*   Updated: 2022/11/09 14:19:02 by myoshika         ###   ########.fr       */
+/*   Updated: 2022/11/10 16:31:44 by myoshika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ typedef struct s_info{
 	bool			should_exit;
 	pthread_mutex_t	*forks;
 	pthread_mutex_t	print;
-	pthread_mutex_t	no_interruption;
+	pthread_mutex_t	monitor;
 	int				threads_created;
 	bool			overflow;
 }	t_info;
