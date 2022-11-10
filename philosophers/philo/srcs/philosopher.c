@@ -6,7 +6,7 @@
 /*   By: myoshika <myoshika@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/03 23:29:10 by myoshika          #+#    #+#             */
-/*   Updated: 2022/11/09 16:03:04 by myoshika         ###   ########.fr       */
+/*   Updated: 2022/11/10 16:31:28 by myoshika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,17 +14,23 @@
 
 static bool	monitor(t_philo *p, t_info *i)
 {
+	pthread_mutex_lock(&i->monitor);
 	if (p->id == i->num_of_philosophers)
 		if (p->meals_eaten == i->meals_to_eat)
 			i->should_exit = true;
 	if (i->should_exit)
+	{
+		pthread_mutex_unlock(&i->monitor);
 		return (false);
+	}
 	if (timestamp(p) - p->time_of_last_meal >= i->time_to_die)
 	{
 		print_action(p, i, DIE_MSG);
 		i->should_exit = true;
+		pthread_mutex_unlock(&i->monitor);
 		return (false);
 	}
+	pthread_mutex_unlock(&i->monitor);
 	return (true);
 }
 
@@ -79,6 +85,7 @@ void	*life(void *p)
 	philo = (t_philo *)p;
 	i = (t_info *)philo->i;
 	philo->start_time = time_in_ms();
+	philo->time_of_last_meal = philo->start_time;
 	if (philo->id % 2 == 0)
 		thinking(p, i);
 	while (1)
