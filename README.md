@@ -2,4 +2,6 @@
  philosophers
 </h1>
 
-<center>The objective of this project is for you to create a simple shell.</center>
+<p align="center">
+The objective of this project is for you to create a simple shell.
+</p>
