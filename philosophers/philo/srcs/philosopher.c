@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philosopher.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: myoshika <myoshika@student.42.fr>          +#+  +:+       +#+        */
+/*   By: myoshika <myoshika@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/03 23:29:10 by myoshika          #+#    #+#             */
-/*   Updated: 2022/12/10 11:54:05 by myoshika         ###   ########.fr       */
+/*   Updated: 2022/12/11 02:12:25 by myoshika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,8 +38,8 @@ static bool	eating(t_philo *p, t_info *i)
 	p->time_of_last_meal = timestamp(p);
 	precise_sleep(timestamp(p) + i->time_to_eat, p);
 	p->meals_eaten++;
-	pthread_mutex_unlock(&i->forks[p->left_fork]);
 	pthread_mutex_unlock(&i->forks[p->right_fork]);
+	pthread_mutex_unlock(&i->forks[p->left_fork]);
 	return (true);
 }
 
