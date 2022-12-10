@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   convert_input.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: myoshika <myoshika@student.42tokyo.jp>     +#+  +:+       +#+        */
+/*   By: myoshika <myoshika@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/09 23:32:06 by myoshika          #+#    #+#             */
-/*   Updated: 2022/11/09 14:56:56 by myoshika         ###   ########.fr       */
+/*   Updated: 2022/12/10 11:46:57 by myoshika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,12 +58,12 @@ bool	convert_input(int argc, char **argv, t_info *i)
 		return (false);
 	i->overflow = false;
 	i->should_exit = false;
-	i->num_of_philosophers = philo_atoi(argv[1], i);
-	i->time_to_die = philo_atoi(argv[2], i);
-	i->time_to_eat = philo_atoi(argv[3], i);
-	i->time_to_sleep = philo_atoi(argv[4], i);
+	i->num_of_philosophers = philo_atoi(argv[1], i) * 1000;
+	i->time_to_die = philo_atoi(argv[2], i) * 1000;
+	i->time_to_eat = philo_atoi(argv[3], i) * 1000;
+	i->time_to_sleep = philo_atoi(argv[4], i) * 1000;
 	if (argc == 6)
-		i->meals_to_eat = philo_atoi(argv[5], i);
+		i->meals_to_eat = philo_atoi(argv[5], i) * 1000;
 	if (!check_range(argc, i))
 		return (false);
 	if (argc != 6)
