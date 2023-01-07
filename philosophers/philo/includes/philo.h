@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philo.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: myoshika <myoshika@student.42tokyo.jp>     +#+  +:+       +#+        */
+/*   By: myoshika <myoshika@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/09 18:43:19 by myoshika          #+#    #+#             */
-/*   Updated: 2022/11/10 16:31:44 by myoshika         ###   ########.fr       */
+/*   Updated: 2023/01/08 05:30:29 by myoshika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,8 @@ typedef struct s_info{
 	int				meals_to_eat;
 	bool			should_exit;
 	pthread_mutex_t	*forks;
+	t_philo			*philos;
+	pthread_t		monitor_tid;
 	pthread_mutex_t	print;
 	pthread_mutex_t	monitor;
 	int				threads_created;

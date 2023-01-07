@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: myoshika <myoshika@student.42tokyo.jp>     +#+  +:+       +#+        */
+/*   By: myoshika <myoshika@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/06 23:15:45 by myoshika          #+#    #+#             */
-/*   Updated: 2022/12/11 02:11:15 by myoshika         ###   ########.fr       */
+/*   Updated: 2023/01/08 05:24:27 by myoshika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,6 +85,7 @@ bool	malloc_forks_and_philos(t_philo **philos, t_info *i)
 	*philos = malloc(sizeof(t_philo) * i->num_of_philosophers);
 	if (!philos)
 		return (false);
+	i->philos = *philos;
 	i->forks = malloc(sizeof(pthread_mutex_t) * i->num_of_philosophers);
 	if (!i->forks)
 	{
