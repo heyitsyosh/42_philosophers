@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   convert_input.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: myoshika <myoshika@student.42.fr>          +#+  +:+       +#+        */
+/*   By: myoshika <myoshika@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/09 23:32:06 by myoshika          #+#    #+#             */
-/*   Updated: 2022/12/10 11:46:57 by myoshika         ###   ########.fr       */
+/*   Updated: 2023/01/11 19:52:37 by myoshika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,8 @@ static bool	check_args(int argc, char **argv)
 	return (true);
 }
 
+//1 millisec = 1000 microsec
+//"time_to_*" variables are converted to microseconds from milliseconds
 bool	convert_input(int argc, char **argv, t_info *i)
 {
 	if (!check_args(argc, argv))

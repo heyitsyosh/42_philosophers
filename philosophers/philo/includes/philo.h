@@ -6,21 +6,15 @@
 /*   By: myoshika <myoshika@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/09 18:43:19 by myoshika          #+#    #+#             */
-/*   Updated: 2022/11/10 16:31:44 by myoshika         ###   ########.fr       */
+/*   Updated: 2023/01/11 21:04:57 by myoshika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef PHILO_H
 # define PHILO_H
 
-# include <stdio.h> //printf
-# include <string.h> //memset
-# include <stdlib.h> //malloc, free
-# include <unistd.h> //read, write, usleep
-# include <sys/time.h> //gettimeofday
-# include <pthread.h>
 # include <stdbool.h>
-# include <limits.h>
+# include <pthread.h>
 
 # define FORK_MSG "has taken a fork"
 # define EAT_MSG "is eating"
@@ -36,15 +30,17 @@ typedef struct s_info{
 	long			time_to_think;
 	int				meals_to_eat;
 	bool			should_exit;
+	t_philo			*philos;
 	pthread_mutex_t	*forks;
 	pthread_mutex_t	print;
-	pthread_mutex_t	monitor;
+	pthread_mutex_t	exit_status;
+	pthread_t		monitor_tid;
 	int				threads_created;
 	bool			overflow;
 }	t_info;
 
 typedef struct s_philo{
-	t_info		*i;
+	t_info		*info;
 	pthread_t	tid;
 	int			id;
 	int			left_fork;
@@ -71,6 +67,10 @@ int		make_philos(t_philo *philos, t_info *i);
 void	join_philos(t_philo *philos, t_info *i);
 
 void	*life(void *p);
+
+void	make_monitor(t_philo *philos, t_info *info);
+void	*monitor(void *info);
+bool	should_end_thread(t_info *info);
 
 void	deinitialize(int forks_to_destroy, t_philo *philos, t_info *i);
 

@@ -6,26 +6,28 @@
 /*   By: myoshika <myoshika@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/03 23:29:10 by myoshika          #+#    #+#             */
-/*   Updated: 2022/12/11 02:12:25 by myoshika         ###   ########.fr       */
+/*   Updated: 2023/01/11 21:10:14 by myoshika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/philo.h"
+#include <stdio.h>
+#include <unistd.h>
 
-void	print_action(t_philo *philo, t_info *i, char *action)
+void	print_action(t_philo *philo, t_info *info, char *action)
 {
-	pthread_mutex_lock(&i->print);
+	pthread_mutex_lock(&info->print);
 	printf("%ld %d %s\n", timestamp(philo), philo->id, action);
-	pthread_mutex_unlock(&i->print);
+	pthread_mutex_unlock(&info->print);
 }
 
 static bool	eating(t_philo *p, t_info *i)
 {
-	if (!monitor(p, i))
+	if (should_end_thread(i))
 		return (false);
 	pthread_mutex_lock(&i->forks[p->left_fork]);
 	print_action(p, i, FORK_MSG);
-	if (!monitor(p, i))
+	if (should_end_thread(i))
 	{
 		pthread_mutex_unlock(&i->forks[p->left_fork]);
 		return (false);
@@ -45,7 +47,7 @@ static bool	eating(t_philo *p, t_info *i)
 
 static bool	sleeping(t_philo *p, t_info *i)
 {
-	if (!monitor(p, i))
+	if (should_end_thread(i))
 		return (false);
 	print_action(p, i, SLEEP_MSG);
 	precise_sleep(timestamp(p) + i->time_to_sleep, p);
@@ -54,7 +56,7 @@ static bool	sleeping(t_philo *p, t_info *i)
 
 static bool	thinking(t_philo *p, t_info *i)
 {
-	if (!monitor(p, i))
+	if (should_end_thread(i))
 		return (false);
 	print_action(p, i, THINK_MSG);
 	return (true);
@@ -66,7 +68,7 @@ void	*life(void *p)
 	t_info	*i;
 
 	philo = (t_philo *)p;
-	i = (t_info *)philo->i;
+	i = (t_info *)philo->info;
 	philo->start_time = time_in_ms();
 	philo->time_of_last_meal = philo->start_time;
 	if (philo->id % 2 == 0)

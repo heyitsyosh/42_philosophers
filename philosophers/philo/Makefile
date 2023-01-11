@@ -4,7 +4,7 @@ FILES = main\
 		convert_input\
 		init\
 		philosopher\
-		atoi\
+		monitor\
 		utils
 SRCS = $(foreach src,$(FILES),./srcs/$(src).c)
 OBJS = $(SRCS:.c=.o)

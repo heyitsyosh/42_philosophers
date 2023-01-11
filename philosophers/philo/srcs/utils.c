@@ -3,14 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: myoshika <myoshika@student.42.fr>          +#+  +:+       +#+        */
+/*   By: myoshika <myoshika@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/06 19:48:58 by myoshika          #+#    #+#             */
-/*   Updated: 2022/12/10 11:56:48 by myoshika         ###   ########.fr       */
+/*   Updated: 2023/01/11 21:08:27 by myoshika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/philo.h"
+#include <sys/time.h>
+#include <limits.h>
+#include <unistd.h>
 
 long	time_in_ms(void)
 {
@@ -39,7 +42,7 @@ void	precise_sleep(long target_time, t_philo *p)
 	}
 }
 
-static int	make_l(const char *str, size_t i, int sign, t_info *p)
+static int	make_int(const char *str, size_t i, int sign, t_info *info)
 {
 	long	num;
 
@@ -48,11 +51,11 @@ static int	make_l(const char *str, size_t i, int sign, t_info *p)
 	{
 		if (sign == 1 && ((num > INT_MAX / 10)
 				|| (num == INT_MAX / 10 && str[i] - '0' > INT_MAX % 10)))
-			p->overflow = true;
+			info->overflow = true;
 		else if (sign == -1 && ((num < INT_MIN / 10)
 				|| (num == INT_MIN / 10 && str[i] - '0' > INT_MIN % 10 * -1)))
-			p->overflow = true;
-		if (p->overflow)
+			info->overflow = true;
+		if (info->overflow)
 			break ;
 		num = (num * 10) + sign * (str[i] - '0');
 		i++;
@@ -60,7 +63,7 @@ static int	make_l(const char *str, size_t i, int sign, t_info *p)
 	return ((int)num);
 }
 
-int	philo_atoi(const char *str, t_info *p)
+int	philo_atoi(const char *str, t_info *info)
 {
 	size_t	i;
 	int		sign;
@@ -75,5 +78,5 @@ int	philo_atoi(const char *str, t_info *p)
 			sign = -1;
 		i++;
 	}
-	return (make_l(str, i, sign, p));
+	return (make_int(str, i, sign, info));
 }
