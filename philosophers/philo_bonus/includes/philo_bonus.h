@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philo_bonus.h                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: myoshika <myoshika@student.42.fr>          +#+  +:+       +#+        */
+/*   By: myoshika <myoshika@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/09 18:43:21 by myoshika          #+#    #+#             */
-/*   Updated: 2022/11/07 06:59:59 by myoshika         ###   ########.fr       */
+/*   Updated: 2023/01/11 19:45:55 by myoshika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,6 @@
 # define PHILO_BONUS_H
 
 # include <stdio.h> //printf
-# include <string.h> //memset
 # include <stdlib.h> //malloc, free, exit
 # include <unistd.h> //read, write, usleep, fork
 # include <stdbool.h>

@@ -3,38 +3,69 @@
 /*                                                        :::      ::::::::   */
 /*   monitor.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: myoshika <myoshika@student.42.fr>          +#+  +:+       +#+        */
+/*   By: myoshika <myoshika@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/06 19:48:58 by myoshika          #+#    #+#             */
-/*   Updated: 2022/12/10 11:58:31 by myoshika         ###   ########.fr       */
+/*   Updated: 2023/01/11 21:03:55 by myoshika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/philo.h"
 
-void	*monitor(void *p)
+bool	should_end_thread(t_info *info)
 {
-	t_philo	*philo;
-	t_info	*i;
+	pthread_mutex_lock(&info->exit_status);
+	if (info->should_exit)
+	{
+		pthread_mutex_unlock(&info->exit_status);
+		return (true);
+	}
+	pthread_mutex_unlock(&info->exit_status);
+	return (false);
+}
 
-	philo = (t_philo *)p;
-	i = (t_info *)philo->i;
-	pthread_mutex_lock(&i->monitor);
-	if (philo->id == i->num_of_philosophers)
-		if (philo->meals_eaten == i->meals_to_eat)
-			i->should_exit = true;
-	if (i->should_exit)
+void	make_monitor(t_philo *philos, t_info *info)
+{
+	info->philos = philos;
+	if (pthread_create(&info->monitor_tid, NULL, life, &info) != 0)
 	{
-		pthread_mutex_unlock(&i->monitor);
-		return (false);
+		printf("failed to create thread\n");
+		return ;
 	}
-	if (timestamp(p) - p->time_of_last_meal >= i->time_to_die)
+	if (pthread_join(info->monitor_tid, NULL) != 0)
+		printf("failed to join thread\n");
+}
+
+static bool	eating_requirement_met(t_info *info, t_philo *philos)
+{
+	int	i;
+
+	if (info->meals_to_eat == -1)
+		return (true);
+	i = 0;
+	while (i < info->num_of_philosophers)
 	{
-		print_action(p, i, DIE_MSG);
-		i->should_exit = true;
-		pthread_mutex_unlock(&i->monitor);
-		return (false);
+		if (philos[i].meals_eaten < info->meals_to_eat)
+			return (false);
+		i++;
 	}
-	pthread_mutex_unlock(&i->monitor);
 	return (true);
+}
+
+static void	detect_starvation()
+{
+	
+}
+
+void	*monitor(void *info_ptr)
+{
+	t_philo	*philos;
+	t_info	*info;
+
+	info = (t_info *)info_ptr;
+	philos = (t_philo *)info->philos;
+	while (!eating_requirement_met(info, philos))
+	{
+		detect_starvation(info, philos);
+	}
 }
