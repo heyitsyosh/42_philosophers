@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: myoshika <myoshika@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/10/09 18:43:19 by myoshika          #+#    #+#             */
-/*   Updated: 2023/01/11 21:04:57 by myoshika         ###   ########.fr       */
+/*   Created: 2023/01/11 21:15:03 by myoshika          #+#    #+#             */
+/*   Updated: 2023/01/11 21:15:07 by myoshika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,8 @@ typedef struct s_info{
 	bool			should_exit;
 	t_philo			*philos;
 	pthread_mutex_t	*forks;
+	t_philo			*philos;
+	pthread_t		monitor_tid;
 	pthread_mutex_t	print;
 	pthread_mutex_t	exit_status;
 	pthread_t		monitor_tid;
