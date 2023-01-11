@@ -6,7 +6,7 @@
 /*   By: myoshika <myoshika@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/11 21:13:49 by myoshika          #+#    #+#             */
-/*   Updated: 2023/01/11 22:39:58 by myoshika         ###   ########.fr       */
+/*   Updated: 2023/01/11 23:28:00 by myoshika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,7 @@ void	*monitor(void *philo)
 		starving_philosopher = find_starving(time_in_ms(), philos, info);
 		if (starving_philosopher != -1)
 		{
-			print_action(&philos[starving_philosopher], info, DIE_MSG);
+			print_action(timestamp(&philos[starving_philosopher]), &philos[starving_philosopher], info, DIE_MSG);
 			break ;
 		}
 		usleep(1000);

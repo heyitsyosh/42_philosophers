@@ -6,7 +6,7 @@
 /*   By: myoshika <myoshika@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/03 23:29:10 by myoshika          #+#    #+#             */
-/*   Updated: 2023/01/11 23:01:52 by myoshika         ###   ########.fr       */
+/*   Updated: 2023/01/11 23:27:33 by myoshika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,10 @@
 #include <stdio.h>
 #include <unistd.h>
 
-void	print_action(t_philo *philo, t_info *info, char *action)
+void	print_action(long time, t_philo *philo, t_info *info, char *action)
 {
 	pthread_mutex_lock(&info->print);
-	printf("%ld %d %s\n", timestamp(philo), philo->id, action);
+	printf("%ld %d %s\n", time, philo->id, action);
 	pthread_mutex_unlock(&info->print);
 }
 
@@ -26,7 +26,7 @@ static bool	eating(t_philo *p, t_info *i)
 	if (should_end_thread(i))
 		return (false);
 	pthread_mutex_lock(&i->forks[p->left_fork]);
-	print_action(p, i, FORK_MSG);
+	print_action(timestamp(p), p, i, FORK_MSG);
 	if (should_end_thread(i))
 	{
 		pthread_mutex_unlock(&i->forks[p->left_fork]);
@@ -49,7 +49,7 @@ static bool	sleeping(t_philo *p, t_info *i)
 {
 	if (should_end_thread(i))
 		return (false);
-	print_action(p, i, SLEEP_MSG);
+	print_action(timestamp(p), p, i, SLEEP_MSG);
 	precise_sleep(timestamp(p) + i->time_to_sleep, p);
 	return (true);
 }
@@ -58,7 +58,7 @@ static bool	thinking(t_philo *p, t_info *i)
 {
 	if (should_end_thread(i))
 		return (false);
-	print_action(p, i, THINK_MSG);
+	print_action(timestamp(p), p, i, THINK_MSG);
 	return (true);
 }
 
