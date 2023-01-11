@@ -6,7 +6,7 @@
 /*   By: myoshika <myoshika@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/06 23:15:45 by myoshika          #+#    #+#             */
-/*   Updated: 2023/01/11 21:26:04 by myoshika         ###   ########.fr       */
+/*   Updated: 2023/01/11 22:52:04 by myoshika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ void	join_philos(t_philo *philos, t_info *info)
 	}
 }
 
-bool	make_forks_and_mutex(t_philo *philos, t_info *info)
+bool	make_forks_and_mutexes(t_philo *philos, t_info *info)
 {
 	int	i;
 

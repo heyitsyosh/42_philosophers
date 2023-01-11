@@ -6,11 +6,13 @@
 /*   By: myoshika <myoshika@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/11 21:13:49 by myoshika          #+#    #+#             */
-/*   Updated: 2023/01/11 22:34:06 by myoshika         ###   ########.fr       */
+/*   Updated: 2023/01/11 22:39:58 by myoshika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/philo.h"
+#include <stdio.h>
+#include <unistd.h>
 
 bool	should_end_thread(t_info *info)
 {
@@ -26,8 +28,7 @@ bool	should_end_thread(t_info *info)
 
 void	make_monitor(t_philo *philos, t_info *info)
 {
-	info->philos = philos;
-	if (pthread_create(&info->monitor_tid, NULL, life, &info) != 0)
+	if (pthread_create(&info->monitor_tid, NULL, life, &philos) != 0)
 	{
 		printf("failed to create thread\n");
 		return ;
@@ -66,14 +67,14 @@ static int	find_starving(long now, t_philo *philos, t_info *info)
 	return (-1);
 }
 
-void	*monitor(void *info_ptr)
+void	*monitor(void *philo)
 {
 	t_philo	*philos;
 	t_info	*info;
 	int		starving_philosopher;
 
-	info = (t_info *)info_ptr;
-	philos = (t_philo *)info->philos;
+	philos = (t_philo *)philo;
+	info = (t_info *)philos->info;
 	while (!eating_requirement_met(philos, info))
 	{
 		starving_philosopher = find_starving(time_in_ms(), philos, info);

@@ -6,7 +6,7 @@
 /*   By: myoshika <myoshika@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/09 19:04:13 by myoshika          #+#    #+#             */
-/*   Updated: 2023/01/11 21:07:47 by myoshika         ###   ########.fr       */
+/*   Updated: 2023/01/11 22:51:53 by myoshika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ int	main(int argc, char **argv)
 		printf("malloc failure\n");
 		return (1);
 	}
-	if (!make_forks_and_mutex(philos, &info))
+	if (!make_forks_and_mutexes(philos, &info))
 		return (1);
 	info.threads_created = make_philos(philos, &info);
 	join_philos(philos, &info);
