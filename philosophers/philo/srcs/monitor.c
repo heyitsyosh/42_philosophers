@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: myoshika <myoshika@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/11/06 19:48:58 by myoshika          #+#    #+#             */
-/*   Updated: 2023/01/11 21:03:55 by myoshika         ###   ########.fr       */
+/*   Created: 2023/01/11 21:13:49 by myoshika          #+#    #+#             */
+/*   Updated: 2023/01/11 21:36:46 by myoshika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,12 +36,12 @@ void	make_monitor(t_philo *philos, t_info *info)
 		printf("failed to join thread\n");
 }
 
-static bool	eating_requirement_met(t_info *info, t_philo *philos)
+static bool	eating_requirement_met(t_philo *philos, t_info *info)
 {
 	int	i;
 
 	if (info->meals_to_eat == -1)
-		return (true);
+		return (false);
 	i = 0;
 	while (i < info->num_of_philosophers)
 	{
@@ -52,7 +52,7 @@ static bool	eating_requirement_met(t_info *info, t_philo *philos)
 	return (true);
 }
 
-static void	detect_starvation()
+static bool	starvation_detected()
 {
 	
 }
@@ -64,8 +64,9 @@ void	*monitor(void *info_ptr)
 
 	info = (t_info *)info_ptr;
 	philos = (t_philo *)info->philos;
-	while (!eating_requirement_met(info, philos))
+	while (!eating_requirement_met(philos, info))
 	{
-		detect_starvation(info, philos);
+		if (starvation_detected(philos, info))
 	}
+	return (NULL);
 }
