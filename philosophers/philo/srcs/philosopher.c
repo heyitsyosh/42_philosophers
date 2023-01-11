@@ -6,7 +6,7 @@
 /*   By: myoshika <myoshika@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/03 23:29:10 by myoshika          #+#    #+#             */
-/*   Updated: 2023/01/11 23:27:33 by myoshika         ###   ########.fr       */
+/*   Updated: 2023/01/12 00:01:32 by myoshika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ static bool	eating(t_philo *p, t_info *i)
 	printf("%ld %d %s\n", timestamp(p), p->id, EAT_MSG);
 	pthread_mutex_unlock(&i->print);
 	p->time_of_last_meal = time_in_ms();
-	precise_sleep(timestamp(p) + i->time_to_eat, p);
+	precise_sleep(i->time_to_eat, p);
 	p->meals_eaten++;
 	pthread_mutex_unlock(&i->forks[p->right_fork]);
 	pthread_mutex_unlock(&i->forks[p->left_fork]);
@@ -50,7 +50,7 @@ static bool	sleeping(t_philo *p, t_info *i)
 	if (should_end_thread(i))
 		return (false);
 	print_action(timestamp(p), p, i, SLEEP_MSG);
-	precise_sleep(timestamp(p) + i->time_to_sleep, p);
+	precise_sleep(i->time_to_sleep, p);
 	return (true);
 }
 
