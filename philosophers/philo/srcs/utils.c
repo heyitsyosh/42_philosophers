@@ -6,7 +6,7 @@
 /*   By: myoshika <myoshika@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/06 19:48:58 by myoshika          #+#    #+#             */
-/*   Updated: 2023/01/11 21:08:27 by myoshika         ###   ########.fr       */
+/*   Updated: 2023/01/12 00:01:02 by myoshika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 #include <limits.h>
 #include <unistd.h>
 
+//time in milliseconds
 long	time_in_ms(void)
 {
 	struct timeval	tv;
@@ -28,15 +29,14 @@ long	timestamp(t_philo *philo)
 	return (time_in_ms() - philo->start_time);
 }
 
-//philo = ms,usleep = usec/micro; microsecond < millisecond
 void	precise_sleep(long target_time, t_philo *p)
 {
 	long	start_time;
 
-	start_time = timestamp(p);
+	start_time = timestamp(p) * 1000;
 	while (1)
 	{
-		if (timestamp(p) - start_time >= target_time)
+		if (timestamp(p) * 1000 - start_time >= target_time)
 			break ;
 		usleep(100);
 	}
