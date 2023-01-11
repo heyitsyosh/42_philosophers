@@ -6,7 +6,7 @@
 /*   By: myoshika <myoshika@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/09 23:32:06 by myoshika          #+#    #+#             */
-/*   Updated: 2023/01/11 21:39:37 by myoshika         ###   ########.fr       */
+/*   Updated: 2023/01/11 22:50:24 by myoshika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ static bool	str_is_num(char *str)
 
 static bool	check_args(int argc, char **argv)
 {
-	if (argc < 5 && 6 < argc)
+	if (argc < 5 || 6 < argc)
 		return (false);
 	if (!str_is_num(argv[1]) || !str_is_num(argv[2])
 		|| !str_is_num(argv[3]) || !str_is_num(argv[4]))
@@ -60,7 +60,7 @@ bool	convert_input(int argc, char **argv, t_info *info)
 		return (false);
 	info->overflow = false;
 	info->should_exit = false;
-	info->num_of_philosophers = philo_atoi(argv[1], info) * 1000;
+	info->num_of_philosophers = philo_atoi(argv[1], info);
 	info->time_to_die = philo_atoi(argv[2], info) * 1000;
 	info->time_to_eat = philo_atoi(argv[3], info) * 1000;
 	info->time_to_sleep = philo_atoi(argv[4], info) * 1000;
