@@ -6,20 +6,20 @@
 /*   By: myoshika <myoshika@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/09 23:32:06 by myoshika          #+#    #+#             */
-/*   Updated: 2023/01/11 19:52:37 by myoshika         ###   ########.fr       */
+/*   Updated: 2023/01/11 21:39:37 by myoshika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/philo.h"
 
-static bool	check_range(int argc, t_info *i)
+static bool	check_range(int argc, t_info *info)
 {
-	if (i->overflow)
+	if (info->overflow)
 		return (false);
-	if (i->num_of_philosophers < 0 || i->time_to_die <= 0 || i->time_to_eat <= 0
-		|| i->time_to_sleep <= 0)
+	if (info->num_of_philosophers < 0 || info->time_to_die <= 0
+		|| info->time_to_eat <= 0 || info->time_to_sleep <= 0)
 		return (false);
-	if (argc == 6 && i->meals_to_eat < 0)
+	if (argc == 6 && info->meals_to_eat < 0)
 		return (false);
 	return (true);
 }
@@ -54,21 +54,21 @@ static bool	check_args(int argc, char **argv)
 
 //1 millisec = 1000 microsec
 //"time_to_*" variables are converted to microseconds from milliseconds
-bool	convert_input(int argc, char **argv, t_info *i)
+bool	convert_input(int argc, char **argv, t_info *info)
 {
 	if (!check_args(argc, argv))
 		return (false);
-	i->overflow = false;
-	i->should_exit = false;
-	i->num_of_philosophers = philo_atoi(argv[1], i) * 1000;
-	i->time_to_die = philo_atoi(argv[2], i) * 1000;
-	i->time_to_eat = philo_atoi(argv[3], i) * 1000;
-	i->time_to_sleep = philo_atoi(argv[4], i) * 1000;
+	info->overflow = false;
+	info->should_exit = false;
+	info->num_of_philosophers = philo_atoi(argv[1], info) * 1000;
+	info->time_to_die = philo_atoi(argv[2], info) * 1000;
+	info->time_to_eat = philo_atoi(argv[3], info) * 1000;
+	info->time_to_sleep = philo_atoi(argv[4], info) * 1000;
 	if (argc == 6)
-		i->meals_to_eat = philo_atoi(argv[5], i) * 1000;
-	if (!check_range(argc, i))
+		info->meals_to_eat = philo_atoi(argv[5], info) * 1000;
+	if (!check_range(argc, info))
 		return (false);
 	if (argc != 6)
-		i->meals_to_eat = -1;
+		info->meals_to_eat = -1;
 	return (true);
 }
