@@ -6,7 +6,7 @@
 /*   By: myoshika <myoshika@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/03 23:29:10 by myoshika          #+#    #+#             */
-/*   Updated: 2023/01/15 18:45:52 by myoshika         ###   ########.fr       */
+/*   Updated: 2023/01/15 19:08:31 by myoshika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,8 +41,9 @@ static bool	eating(t_philo *p, t_info *i)
 		pthread_mutex_unlock(&i->forks[p->right_fork]);
 		return (false);
 	}
-	precise_sleep(i->time_to_eat);
 	pthread_mutex_lock(&i->philo_mtx[p->id - 1]);
+	p->time_of_last_meal = time_in_usec();
+	precise_sleep(i->time_to_eat);
 	p->time_of_last_meal = time_in_usec();
 	p->meals_eaten++;
 	pthread_mutex_unlock(&i->philo_mtx[p->id - 1]);
