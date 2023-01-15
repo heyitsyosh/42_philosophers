@@ -6,7 +6,7 @@
 /*   By: myoshika <myoshika@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/11 21:15:03 by myoshika          #+#    #+#             */
-/*   Updated: 2023/01/15 14:45:58 by myoshika         ###   ########.fr       */
+/*   Updated: 2023/01/15 16:15:32 by myoshika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ long	time_in_usec(void);
 long	timestamp_in_ms(t_philo *philo);
 void	set_start_time(t_philo *philo, t_info *i);
 
-void	precise_sleep(long time_to_sleep_usec, t_philo *p);
+void	precise_sleep(long time_to_sleep_usec);
 bool	print_action(long time, t_philo *philo, t_info *i, char *action);
 
 bool	malloc_forks_and_philos(t_philo **philos, t_info *i);

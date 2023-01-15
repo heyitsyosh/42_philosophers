@@ -6,7 +6,7 @@
 /*   By: myoshika <myoshika@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/06 19:48:58 by myoshika          #+#    #+#             */
-/*   Updated: 2023/01/15 14:40:20 by myoshika         ###   ########.fr       */
+/*   Updated: 2023/01/15 16:14:59 by myoshika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,14 +36,14 @@ bool	print_action(long time, t_philo *philo, t_info *info, char *action)
 	return (true);
 }
 
-void	precise_sleep(long target_time_usec, t_philo *p)
+void	precise_sleep(long target_time_usec)
 {
 	long	start_time_usec;
 
 	start_time_usec = time_in_usec();
 	while (1)
 	{
-		if (timestamp_in_ms(p) * 1000 - start_time_usec >= target_time_usec)
+		if (time_in_usec() - start_time_usec >= target_time_usec)
 			break ;
 		usleep(100);
 	}
