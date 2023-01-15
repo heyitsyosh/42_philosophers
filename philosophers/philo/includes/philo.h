@@ -6,7 +6,7 @@
 /*   By: myoshika <myoshika@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/11 21:15:03 by myoshika          #+#    #+#             */
-/*   Updated: 2023/01/15 12:33:04 by myoshika         ###   ########.fr       */
+/*   Updated: 2023/01/15 13:09:05 by myoshika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ typedef struct s_info{
 	int				meals_to_eat;
 	bool			should_exit;
 	pthread_mutex_t	*forks;
-	pthread_mutex_t	*last_meal_mtx;
+	pthread_mutex_t	*philo_mtx;
 	pthread_mutex_t	print;
 	pthread_t		monitor_tid;
 	int				threads_created;
