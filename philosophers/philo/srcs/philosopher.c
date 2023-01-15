@@ -6,7 +6,7 @@
 /*   By: myoshika <myoshika@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/03 23:29:10 by myoshika          #+#    #+#             */
-/*   Updated: 2023/01/16 08:33:23 by myoshika         ###   ########.fr       */
+/*   Updated: 2023/01/16 08:35:45 by myoshika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ static bool	taking_forks(t_philo *p, t_info *i)
 	{
 		pthread_mutex_unlock(&i->forks[p->left_fork]);
 		if (i->num_of_philosophers == 1)
-			usleep(i->time_to_die + 1000);
+			usleep(i->time_to_die + 800);
 		return (false);
 	}
 	p->right_fork_timestamp_ms = timestamp_in_ms(p);
