@@ -6,7 +6,7 @@
 /*   By: myoshika <myoshika@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/06 19:48:58 by myoshika          #+#    #+#             */
-/*   Updated: 2023/01/15 16:14:59 by myoshika         ###   ########.fr       */
+/*   Updated: 2023/01/15 16:47:36 by myoshika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ void	precise_sleep(long target_time_usec)
 	{
 		if (time_in_usec() - start_time_usec >= target_time_usec)
 			break ;
-		usleep(100);
+		usleep(50);
 	}
 }
 
