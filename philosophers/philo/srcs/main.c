@@ -6,7 +6,7 @@
 /*   By: myoshika <myoshika@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/09 19:04:13 by myoshika          #+#    #+#             */
-/*   Updated: 2023/01/15 12:44:25 by myoshika         ###   ########.fr       */
+/*   Updated: 2023/01/15 13:09:29 by myoshika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,13 +20,13 @@ static void	deinitialize(t_philo *philos, t_info *info)
 
 	i = 0;
 	while (i < info->num_of_philosophers)
-		pthread_mutex_destroy(&info->last_meal_mtx[i++]);
+		pthread_mutex_destroy(&info->philo_mtx[i++]);
 	i = 0;
 	while (i++ < info->num_of_philosophers)
 		pthread_mutex_destroy(&info->forks[i++]);
 	if (info->num_of_philosophers < 0)
 		pthread_mutex_destroy(&info->print);
-	free(info->last_meal_mtx);
+	free(info->philo_mtx);
 	free(info->forks);
 	free(philos);
 }

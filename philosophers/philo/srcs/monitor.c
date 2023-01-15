@@ -6,7 +6,7 @@
 /*   By: myoshika <myoshika@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/11 21:13:49 by myoshika          #+#    #+#             */
-/*   Updated: 2023/01/15 12:30:11 by myoshika         ###   ########.fr       */
+/*   Updated: 2023/01/15 13:14:35 by myoshika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,8 +34,13 @@ static bool	eating_requirement_met(t_philo *philos, t_info *info)
 	i = 0;
 	while (i < info->num_of_philosophers)
 	{
+		pthread_mutex_lock(&info->philo_mtx[i]);
 		if (philos[i].meals_eaten < info->meals_to_eat)
+		{
+			pthread_mutex_unlock(&info->philo_mtx[i]);
 			return (false);
+		}
+		pthread_mutex_unlock(&info->philo_mtx[i]);
 		i++;
 	}
 	pthread_mutex_lock(&info->print);
@@ -49,15 +54,15 @@ static int	find_starving(long now, t_philo *philos, t_info *info)
 	i = 0;
 	while (i < info->num_of_philosophers)
 	{
-		pthread_mutex_lock(&info->last_meal_mtx[i]);
+		pthread_mutex_lock(&info->philo_mtx[i]);
 		if (now - philos[i].time_of_last_meal > info->time_to_die)
 		{
-			pthread_mutex_unlock(&info->last_meal_mtx[i]);
+			pthread_mutex_unlock(&info->philo_mtx[i]);
 			return (i);
 		}
+		pthread_mutex_unlock(&info->philo_mtx[i]);
 		i++;
 	}
-	pthread_mutex_unlock(&info->last_meal_mtx[i]);
 	return (-1);
 }
 

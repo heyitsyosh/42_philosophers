@@ -6,7 +6,7 @@
 /*   By: myoshika <myoshika@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/06 23:15:45 by myoshika          #+#    #+#             */
-/*   Updated: 2023/01/15 12:44:10 by myoshika         ###   ########.fr       */
+/*   Updated: 2023/01/15 13:09:21 by myoshika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,7 @@ bool	make_mutexes(t_info *info)
 	while (i < info->num_of_philosophers)
 	{
 		pthread_mutex_init(&info->forks[i], NULL);
-		pthread_mutex_init(&info->last_meal_mtx[i], NULL);
+		pthread_mutex_init(&info->philo_mtx[i], NULL);
 		i++;
 	}
 	return (true);
@@ -75,12 +75,12 @@ bool	malloc_forks_and_philos(t_philo **philos, t_info *i)
 {
 	*philos = malloc(sizeof(t_philo) * i->num_of_philosophers);
 	i->forks = malloc(sizeof(pthread_mutex_t) * i->num_of_philosophers);
-	i->last_meal_mtx = malloc(sizeof(pthread_mutex_t) * i->num_of_philosophers);
-	if (!philos || !i->forks || !i->last_meal_mtx)
+	i->philo_mtx = malloc(sizeof(pthread_mutex_t) * i->num_of_philosophers);
+	if (!philos || !i->forks || !i->philo_mtx)
 	{
 		free(*philos);
 		free(i->forks);
-		free(i->last_meal_mtx);
+		free(i->philo_mtx);
 		return (false);
 	}
 	return (true);
