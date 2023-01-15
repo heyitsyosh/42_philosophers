@@ -6,7 +6,7 @@
 /*   By: myoshika <myoshika@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/11 21:15:03 by myoshika          #+#    #+#             */
-/*   Updated: 2023/01/15 16:15:32 by myoshika         ###   ########.fr       */
+/*   Updated: 2023/01/15 18:44:23 by myoshika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,7 @@ typedef struct s_philo{
 	int			left_fork;
 	int			right_fork;
 	int			meals_eaten;
+	long		right_fork_timestamp_ms;
 	long		start_time_ms;
 	long		time_of_last_meal;
 }	t_philo;
