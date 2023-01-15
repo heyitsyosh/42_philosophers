@@ -6,7 +6,7 @@
 /*   By: myoshika <myoshika@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/03 23:29:10 by myoshika          #+#    #+#             */
-/*   Updated: 2023/01/15 11:55:59 by myoshika         ###   ########.fr       */
+/*   Updated: 2023/01/15 12:33:19 by myoshika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 #include <stdio.h>
 #include <unistd.h>
 
-static bool	eating(t_philo *p, t_info *i)
+static bool	taking_left_fork(t_philo *p, t_info *i)
 {
 	pthread_mutex_lock(&i->forks[p->left_fork]);
 	if (!print_action(timestamp_in_ms(p), p, i, FORK_MSG))
@@ -22,6 +22,11 @@ static bool	eating(t_philo *p, t_info *i)
 		pthread_mutex_unlock(&i->forks[p->left_fork]);
 		return (false);
 	}
+	return (true);
+}
+
+static bool	eating(t_philo *p, t_info *i)
+{
 	pthread_mutex_lock(&i->forks[p->right_fork]);
 	pthread_mutex_lock(&i->print);
 	if (i->should_exit)
@@ -35,7 +40,9 @@ static bool	eating(t_philo *p, t_info *i)
 	printf("%ld %d %s\n", timestamp_in_ms(p), p->id, EAT_MSG);
 	pthread_mutex_unlock(&i->print);
 	precise_sleep(i->time_to_eat, p);
+	pthread_mutex_lock(&i->last_meal_mtx[p->id - 1]);
 	p->time_of_last_meal = time_in_usec();
+	pthread_mutex_unlock(&i->last_meal_mtx[p->id - 1]);
 	p->meals_eaten++;
 	pthread_mutex_unlock(&i->forks[p->right_fork]);
 	pthread_mutex_unlock(&i->forks[p->left_fork]);
@@ -73,6 +80,8 @@ void	*life(void *p)
 	}
 	while (1)
 	{
+		if (!taking_left_fork(p, i))
+			break ;
 		if (!eating(p, i))
 			break ;
 		if (!sleeping(p, i))
