@@ -6,7 +6,7 @@
 /*   By: myoshika <myoshika@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/03 23:29:10 by myoshika          #+#    #+#             */
-/*   Updated: 2023/01/15 10:44:20 by myoshika         ###   ########.fr       */
+/*   Updated: 2023/01/15 11:15:27 by myoshika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,17 +16,20 @@
 
 static bool	eating(t_philo *p, t_info *i)
 {
-	if (should_end_thread(i))
-		return (false);
 	pthread_mutex_lock(&i->forks[p->left_fork]);
-	print_action(timestamp_in_ms(p), p, i, FORK_MSG);
-	if (should_end_thread(i))
+	if (!print_action(timestamp_in_ms(p), p, i, FORK_MSG))
 	{
 		pthread_mutex_unlock(&i->forks[p->left_fork]);
 		return (false);
 	}
 	pthread_mutex_lock(&i->forks[p->right_fork]);
 	pthread_mutex_lock(&i->print);
+	if (i->should_exit)
+	{
+		pthread_mutex_unlock(&i->forks[p->right_fork]);
+		pthread_mutex_unlock(&i->forks[p->left_fork]);
+		return (false);
+	}
 	printf("%ld %d %s\n", timestamp_in_ms(p), p->id, FORK_MSG);
 	printf("%ld %d %s\n", timestamp_in_ms(p), p->id, EAT_MSG);
 	pthread_mutex_unlock(&i->print);
@@ -40,18 +43,16 @@ static bool	eating(t_philo *p, t_info *i)
 
 static bool	sleeping(t_philo *p, t_info *i)
 {
-	if (should_end_thread(i))
+	if (!print_action(timestamp_in_ms(p), p, i, SLEEP_MSG))
 		return (false);
-	print_action(timestamp_in_ms(p), p, i, SLEEP_MSG);
 	precise_sleep(i->time_to_sleep, p);
 	return (true);
 }
 
 static bool	thinking(t_philo *p, t_info *i)
 {
-	if (should_end_thread(i))
+	if (!print_action(timestamp_in_ms(p), p, i, THINK_MSG))
 		return (false);
-	print_action(timestamp_in_ms(p), p, i, THINK_MSG);
 	return (true);
 }
 
