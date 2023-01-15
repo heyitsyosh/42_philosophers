@@ -6,7 +6,7 @@
 /*   By: myoshika <myoshika@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/03 23:29:10 by myoshika          #+#    #+#             */
-/*   Updated: 2023/01/16 04:36:36 by myoshika         ###   ########.fr       */
+/*   Updated: 2023/01/16 08:33:23 by myoshika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,12 +17,14 @@
 static bool	taking_forks(t_philo *p, t_info *i)
 {
 	pthread_mutex_lock(&i->forks[p->left_fork]);
-	if (!print_action(timestamp_in_ms(p), p, i, FORK_MSG))
+	if (!print_action(timestamp_in_ms(p), p, i, FORK_MSG)
+		|| i->num_of_philosophers == 1)
 	{
 		pthread_mutex_unlock(&i->forks[p->left_fork]);
+		if (i->num_of_philosophers == 1)
+			usleep(i->time_to_die + 1000);
 		return (false);
 	}
-	pthread_mutex_lock(&i->forks[p->right_fork]);
 	p->right_fork_timestamp_ms = timestamp_in_ms(p);
 	if (!print_action(p->right_fork_timestamp_ms, p, i, FORK_MSG))
 	{
@@ -79,7 +81,8 @@ void	*life(void *p)
 	philo = (t_philo *)p;
 	i = (t_info *)philo->info;
 	set_start_time(philo, i);
-	if (philo->id % 2 == 0 || philo->id == i->num_of_philosophers)
+	if (philo->id % 2 == 0
+		|| (philo->id == i->num_of_philosophers && i->num_of_philosophers != 1))
 	{
 		thinking(p, i);
 		usleep(70);
