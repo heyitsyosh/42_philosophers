@@ -6,7 +6,7 @@
 /*   By: myoshika <myoshika@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/03 23:29:10 by myoshika          #+#    #+#             */
-/*   Updated: 2023/01/15 18:43:37 by myoshika         ###   ########.fr       */
+/*   Updated: 2023/01/15 18:45:52 by myoshika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ static bool	taking_forks(t_philo *p, t_info *i)
 	}
 	pthread_mutex_lock(&i->forks[p->right_fork]);
 	p->right_fork_timestamp_ms = timestamp_in_ms(p);
-	if (!print_action(timestamp_in_ms(p), p, i, FORK_MSG))
+	if (!print_action(p->right_fork_timestamp_ms, p, i, FORK_MSG))
 	{
 		pthread_mutex_unlock(&i->forks[p->left_fork]);
 		pthread_mutex_unlock(&i->forks[p->right_fork]);
