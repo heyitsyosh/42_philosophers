@@ -6,7 +6,7 @@
 /*   By: myoshika <myoshika@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/06 19:48:58 by myoshika          #+#    #+#             */
-/*   Updated: 2023/01/16 04:37:37 by myoshika         ###   ########.fr       */
+/*   Updated: 2023/01/16 08:20:28 by myoshika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,6 @@ void	sleep_till(long target_time_ms, t_philo *philo)
 {
 	while (timestamp_in_ms(philo) < target_time_ms)
 		usleep(100);
-
 }
 
 static int	make_int(const char *str, size_t i, int sign, t_info *info)
