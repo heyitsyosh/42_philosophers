@@ -6,7 +6,7 @@
 /*   By: myoshika <myoshika@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/03 23:29:10 by myoshika          #+#    #+#             */
-/*   Updated: 2023/01/15 11:48:41 by myoshika         ###   ########.fr       */
+/*   Updated: 2023/01/15 11:55:59 by myoshika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@ static bool	eating(t_philo *p, t_info *i)
 	{
 		pthread_mutex_unlock(&i->forks[p->right_fork]);
 		pthread_mutex_unlock(&i->forks[p->left_fork]);
+		pthread_mutex_unlock(&i->print);
 		return (false);
 	}
 	printf("%ld %d %s\n", timestamp_in_ms(p), p->id, FORK_MSG);
