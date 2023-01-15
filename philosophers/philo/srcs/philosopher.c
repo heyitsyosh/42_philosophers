@@ -6,7 +6,7 @@
 /*   By: myoshika <myoshika@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/03 23:29:10 by myoshika          #+#    #+#             */
-/*   Updated: 2023/01/15 19:28:01 by myoshika         ###   ########.fr       */
+/*   Updated: 2023/01/15 20:01:46 by myoshika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,7 @@ void	*life(void *p)
 	if (philo->id % 2 == 0)
 	{
 		thinking(p, i);
-		usleep(150);
+		usleep(120);
 	}
 	while (1)
 	{
