@@ -6,7 +6,7 @@
 /*   By: myoshika <myoshika@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/03 23:29:10 by myoshika          #+#    #+#             */
-/*   Updated: 2023/01/15 13:10:49 by myoshika         ###   ########.fr       */
+/*   Updated: 2023/01/15 14:40:28 by myoshika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 #include <stdio.h>
 #include <unistd.h>
 
-static bool	taking_left_fork(t_philo *p, t_info *i)
+static bool	taking_forks(t_philo *p, t_info *i)
 {
 	pthread_mutex_lock(&i->forks[p->left_fork]);
 	if (!print_action(timestamp_in_ms(p), p, i, FORK_MSG))
@@ -22,23 +22,24 @@ static bool	taking_left_fork(t_philo *p, t_info *i)
 		pthread_mutex_unlock(&i->forks[p->left_fork]);
 		return (false);
 	}
+	pthread_mutex_lock(&i->forks[p->right_fork]);
+	if (!print_action(timestamp_in_ms(p), p, i, FORK_MSG))
+	{
+		pthread_mutex_unlock(&i->forks[p->left_fork]);
+		pthread_mutex_unlock(&i->forks[p->right_fork]);
+		return (false);
+	}
 	return (true);
 }
 
 static bool	eating(t_philo *p, t_info *i)
 {
-	pthread_mutex_lock(&i->forks[p->right_fork]);
-	pthread_mutex_lock(&i->print);
-	if (i->should_exit)
+	if (!print_action(timestamp_in_ms(p), p, i, EAT_MSG))
 	{
-		pthread_mutex_unlock(&i->forks[p->right_fork]);
 		pthread_mutex_unlock(&i->forks[p->left_fork]);
-		pthread_mutex_unlock(&i->print);
+		pthread_mutex_unlock(&i->forks[p->right_fork]);
 		return (false);
 	}
-	printf("%ld %d %s\n", timestamp_in_ms(p), p->id, FORK_MSG);
-	printf("%ld %d %s\n", timestamp_in_ms(p), p->id, EAT_MSG);
-	pthread_mutex_unlock(&i->print);
 	precise_sleep(i->time_to_eat, p);
 	pthread_mutex_lock(&i->philo_mtx[p->id - 1]);
 	p->time_of_last_meal = time_in_usec();
@@ -71,8 +72,7 @@ void	*life(void *p)
 
 	philo = (t_philo *)p;
 	i = (t_info *)philo->info;
-	philo->start_time_ms = time_in_ms();
-	philo->time_of_last_meal = time_in_usec();
+	set_start_time(philo, i);
 	if (philo->id % 2 == 0)
 	{
 		thinking(p, i);
@@ -80,7 +80,7 @@ void	*life(void *p)
 	}
 	while (1)
 	{
-		if (!taking_left_fork(p, i))
+		if (!taking_forks(p, i))
 			break ;
 		if (!eating(p, i))
 			break ;
