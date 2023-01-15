@@ -6,12 +6,14 @@
 /*   By: myoshika <myoshika@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/15 07:11:42 by myoshika          #+#    #+#             */
-/*   Updated: 2023/01/15 18:49:20 by myoshika         ###   ########.fr       */
+/*   Updated: 2023/01/15 19:01:08 by myoshika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/philo.h"
 #include <sys/time.h>
+
+# include <stdio.h>
 
 long	time_in_ms(void)
 {
@@ -31,6 +33,5 @@ long	time_in_usec(void)
 
 long	timestamp_in_ms(t_philo *philo)
 {
-	printf("[%ld - %ld = %ld]\n", time_in_ms(), philo->start_time_ms, time_in_ms() - philo->start_time_ms);
 	return (time_in_ms() - philo->start_time_ms);
 }
