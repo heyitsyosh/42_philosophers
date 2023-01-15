@@ -6,7 +6,7 @@
 /*   By: myoshika <myoshika@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/06 23:15:45 by myoshika          #+#    #+#             */
-/*   Updated: 2023/01/15 18:43:53 by myoshika         ###   ########.fr       */
+/*   Updated: 2023/01/16 03:57:47 by myoshika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,8 +24,8 @@ static void	init_philo(t_philo *philo, t_info *info, int i)
 	philo->meals_eaten = 0;
 	if (i + 1 == info->num_of_philosophers)
 	{
-		philo->right_fork = i;
-		philo->left_fork = 0;
+		philo->right_fork = 0;
+		philo->left_fork = i;
 	}
 }
 

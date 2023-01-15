@@ -6,7 +6,7 @@
 /*   By: myoshika <myoshika@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/06 19:48:58 by myoshika          #+#    #+#             */
-/*   Updated: 2023/01/15 18:59:06 by myoshika         ###   ########.fr       */
+/*   Updated: 2023/01/16 04:37:37 by myoshika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,17 +36,11 @@ bool	print_action(long time, t_philo *philo, t_info *info, char *action)
 	return (true);
 }
 
-void	precise_sleep(long target_time_usec)
+void	sleep_till(long target_time_ms, t_philo *philo)
 {
-	long	start_time_usec;
+	while (timestamp_in_ms(philo) < target_time_ms)
+		usleep(100);
 
-	start_time_usec = time_in_usec();
-	while (1)
-	{
-		if (time_in_usec() - start_time_usec >= target_time_usec)
-			break ;
-		usleep(50);
-	}
 }
 
 static int	make_int(const char *str, size_t i, int sign, t_info *info)
