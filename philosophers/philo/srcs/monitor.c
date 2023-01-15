@@ -6,7 +6,7 @@
 /*   By: myoshika <myoshika@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/11 21:13:49 by myoshika          #+#    #+#             */
-/*   Updated: 2023/01/15 18:36:32 by myoshika         ###   ########.fr       */
+/*   Updated: 2023/01/15 19:04:21 by myoshika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,7 @@ static int	find_starving(long now, t_philo *philos, t_info *info)
 	while (i < info->num_of_philosophers)
 	{
 		pthread_mutex_lock(&info->philo_mtx[i]);
+//		printf("[%ld - %ld (%ld) > %ld]\n", now, philos[i].time_of_last_meal, now - philos[i].time_of_last_meal,  info->time_to_die);
 		if (now - philos[i].time_of_last_meal > info->time_to_die)
 		{
 			pthread_mutex_unlock(&info->philo_mtx[i]);
