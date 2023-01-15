@@ -6,7 +6,7 @@
 /*   By: myoshika <myoshika@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/11 21:15:03 by myoshika          #+#    #+#             */
-/*   Updated: 2023/01/15 18:44:23 by myoshika         ###   ########.fr       */
+/*   Updated: 2023/01/16 04:36:54 by myoshika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,6 @@ typedef struct s_info{
 	long			time_to_die;
 	long			time_to_eat;
 	long			time_to_sleep;
-	long			time_to_think;
 	int				meals_to_eat;
 	bool			should_exit;
 	pthread_mutex_t	*forks;
@@ -61,10 +60,11 @@ int		ft_strcmp(const char *s1, const char *s2);
 
 long	time_in_ms(void);
 long	time_in_usec(void);
+long	usec_to_ms(long usec);
 long	timestamp_in_ms(t_philo *philo);
 void	set_start_time(t_philo *philo, t_info *i);
 
-void	precise_sleep(long time_to_sleep_usec);
+void	sleep_till(long target_time_ms, t_philo *philo);
 bool	print_action(long time, t_philo *philo, t_info *i, char *action);
 
 bool	malloc_forks_and_philos(t_philo **philos, t_info *i);

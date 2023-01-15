@@ -6,7 +6,7 @@
 /*   By: myoshika <myoshika@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/03 23:29:10 by myoshika          #+#    #+#             */
-/*   Updated: 2023/01/15 20:01:46 by myoshika         ###   ########.fr       */
+/*   Updated: 2023/01/16 04:36:36 by myoshika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,8 +26,8 @@ static bool	taking_forks(t_philo *p, t_info *i)
 	p->right_fork_timestamp_ms = timestamp_in_ms(p);
 	if (!print_action(p->right_fork_timestamp_ms, p, i, FORK_MSG))
 	{
-		pthread_mutex_unlock(&i->forks[p->left_fork]);
 		pthread_mutex_unlock(&i->forks[p->right_fork]);
+		pthread_mutex_unlock(&i->forks[p->left_fork]);
 		return (false);
 	}
 	return (true);
@@ -44,7 +44,7 @@ static bool	eating(t_philo *p, t_info *i)
 	pthread_mutex_lock(&i->philo_mtx[p->id - 1]);
 	p->time_of_last_meal = time_in_usec();
 	pthread_mutex_unlock(&i->philo_mtx[p->id - 1]);
-	precise_sleep(i->time_to_eat);
+	sleep_till(p->right_fork_timestamp_ms + i->time_to_eat / 1000, p);
 	pthread_mutex_lock(&i->philo_mtx[p->id - 1]);
 	p->meals_eaten++;
 	pthread_mutex_unlock(&i->philo_mtx[p->id - 1]);
@@ -55,9 +55,12 @@ static bool	eating(t_philo *p, t_info *i)
 
 static bool	sleeping(t_philo *p, t_info *i)
 {
-	if (!print_action(timestamp_in_ms(p), p, i, SLEEP_MSG))
+	long	sleeping_start_time;
+
+	sleeping_start_time = timestamp_in_ms(p);
+	if (!print_action(sleeping_start_time, p, i, SLEEP_MSG))
 		return (false);
-	precise_sleep(i->time_to_sleep);
+	sleep_till(sleeping_start_time + i->time_to_sleep / 1000, p);
 	return (true);
 }
 
@@ -76,10 +79,10 @@ void	*life(void *p)
 	philo = (t_philo *)p;
 	i = (t_info *)philo->info;
 	set_start_time(philo, i);
-	if (philo->id % 2 == 0)
+	if (philo->id % 2 == 0 || philo->id == i->num_of_philosophers)
 	{
 		thinking(p, i);
-		usleep(120);
+		usleep(70);
 	}
 	while (1)
 	{
