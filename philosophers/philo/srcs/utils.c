@@ -6,7 +6,7 @@
 /*   By: myoshika <myoshika@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/06 19:48:58 by myoshika          #+#    #+#             */
-/*   Updated: 2023/01/15 11:48:34 by myoshika         ###   ########.fr       */
+/*   Updated: 2023/01/15 14:40:20 by myoshika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,14 @@
 #include <stdio.h>
 #include <limits.h>
 #include <unistd.h>
+
+void	set_start_time(t_philo *philo, t_info *i)
+{
+	philo->start_time_ms = time_in_ms();
+	pthread_mutex_lock(&i->philo_mtx[philo->id - 1]);
+	philo->time_of_last_meal = time_in_usec();
+	pthread_mutex_unlock(&i->philo_mtx[philo->id - 1]);
+}
 
 bool	print_action(long time, t_philo *philo, t_info *info, char *action)
 {

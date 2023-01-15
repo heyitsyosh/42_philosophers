@@ -6,7 +6,7 @@
 /*   By: myoshika <myoshika@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/11 21:13:49 by myoshika          #+#    #+#             */
-/*   Updated: 2023/01/15 13:14:35 by myoshika         ###   ########.fr       */
+/*   Updated: 2023/01/15 14:45:35 by myoshika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,8 +80,8 @@ void	*monitor(void *philo)
 		if (starving_philosopher != -1)
 		{
 			pthread_mutex_lock(&info->print);
-			print_action(timestamp_in_ms(&philos[starving_philosopher]), \
-				&philos[starving_philosopher], info, DIE_MSG);
+			printf("%ld %d %s\n", timestamp_in_ms(&philos[starving_philosopher]),
+				starving_philosopher + 1, DIE_MSG);
 			break ;
 		}
 		usleep(1000);
