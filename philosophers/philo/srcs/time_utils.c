@@ -6,7 +6,7 @@
 /*   By: myoshika <myoshika@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/15 07:11:42 by myoshika          #+#    #+#             */
-/*   Updated: 2023/01/15 10:05:55 by myoshika         ###   ########.fr       */
+/*   Updated: 2023/01/15 11:32:36 by myoshika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ long	time_in_usec(void)
 	struct timeval	tv;
 
 	gettimeofday(&tv, NULL);
-	return (tv.tv_usec);
+	return (1000000 * tv.tv_sec + tv.tv_usec);
 }
 
 long	timestamp_in_ms(t_philo *philo)
