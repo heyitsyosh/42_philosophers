@@ -6,7 +6,7 @@
 /*   By: myoshika <myoshika@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/09 23:32:06 by myoshika          #+#    #+#             */
-/*   Updated: 2023/01/11 22:50:24 by myoshika         ###   ########.fr       */
+/*   Updated: 2023/01/15 07:16:58 by myoshika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,6 @@ static bool	check_args(int argc, char **argv)
 	return (true);
 }
 
-//1 millisec = 1000 microsec
 //"time_to_*" variables are converted to microseconds from milliseconds
 bool	convert_input(int argc, char **argv, t_info *info)
 {

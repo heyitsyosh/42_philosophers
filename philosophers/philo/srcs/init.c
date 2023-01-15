@@ -6,7 +6,7 @@
 /*   By: myoshika <myoshika@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/06 23:15:45 by myoshika          #+#    #+#             */
-/*   Updated: 2023/01/11 22:52:04 by myoshika         ###   ########.fr       */
+/*   Updated: 2023/01/15 07:32:36 by myoshika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+//left and right fork of last philosopher is flipped for mutex hierarchy
 static void	init_philo(t_philo *philo, t_info *info, int i)
 {
 	philo->info = info;
@@ -46,7 +47,7 @@ int	make_philos(t_philo *philos, t_info *info)
 	return (i);
 }
 
-void	join_philos(t_philo *philos, t_info *info)
+void	join_philo_threads(t_philo *philos, t_info *info)
 {
 	while (info->threads_created-- > 0)
 	{
@@ -55,7 +56,7 @@ void	join_philos(t_philo *philos, t_info *info)
 	}
 }
 
-bool	make_forks_and_mutexes(t_philo *philos, t_info *info)
+bool	make_mutexes(t_philo *philos, t_info *info)
 {
 	int	i;
 

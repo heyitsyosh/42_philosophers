@@ -6,7 +6,7 @@
 /*   By: myoshika <myoshika@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/03 23:29:10 by myoshika          #+#    #+#             */
-/*   Updated: 2023/01/12 00:01:32 by myoshika         ###   ########.fr       */
+/*   Updated: 2023/01/15 10:44:20 by myoshika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,19 +14,12 @@
 #include <stdio.h>
 #include <unistd.h>
 
-void	print_action(long time, t_philo *philo, t_info *info, char *action)
-{
-	pthread_mutex_lock(&info->print);
-	printf("%ld %d %s\n", time, philo->id, action);
-	pthread_mutex_unlock(&info->print);
-}
-
 static bool	eating(t_philo *p, t_info *i)
 {
 	if (should_end_thread(i))
 		return (false);
 	pthread_mutex_lock(&i->forks[p->left_fork]);
-	print_action(timestamp(p), p, i, FORK_MSG);
+	print_action(timestamp_in_ms(p), p, i, FORK_MSG);
 	if (should_end_thread(i))
 	{
 		pthread_mutex_unlock(&i->forks[p->left_fork]);
@@ -34,11 +27,11 @@ static bool	eating(t_philo *p, t_info *i)
 	}
 	pthread_mutex_lock(&i->forks[p->right_fork]);
 	pthread_mutex_lock(&i->print);
-	printf("%ld %d %s\n", timestamp(p), p->id, FORK_MSG);
-	printf("%ld %d %s\n", timestamp(p), p->id, EAT_MSG);
+	printf("%ld %d %s\n", timestamp_in_ms(p), p->id, FORK_MSG);
+	printf("%ld %d %s\n", timestamp_in_ms(p), p->id, EAT_MSG);
 	pthread_mutex_unlock(&i->print);
-	p->time_of_last_meal = time_in_ms();
 	precise_sleep(i->time_to_eat, p);
+	p->time_of_last_meal = time_in_usec();
 	p->meals_eaten++;
 	pthread_mutex_unlock(&i->forks[p->right_fork]);
 	pthread_mutex_unlock(&i->forks[p->left_fork]);
@@ -49,7 +42,7 @@ static bool	sleeping(t_philo *p, t_info *i)
 {
 	if (should_end_thread(i))
 		return (false);
-	print_action(timestamp(p), p, i, SLEEP_MSG);
+	print_action(timestamp_in_ms(p), p, i, SLEEP_MSG);
 	precise_sleep(i->time_to_sleep, p);
 	return (true);
 }
@@ -58,7 +51,7 @@ static bool	thinking(t_philo *p, t_info *i)
 {
 	if (should_end_thread(i))
 		return (false);
-	print_action(timestamp(p), p, i, THINK_MSG);
+	print_action(timestamp_in_ms(p), p, i, THINK_MSG);
 	return (true);
 }
 
@@ -69,12 +62,12 @@ void	*life(void *p)
 
 	philo = (t_philo *)p;
 	i = (t_info *)philo->info;
-	philo->start_time = time_in_ms();
-	philo->time_of_last_meal = philo->start_time;
+	philo->start_time_ms = time_in_ms();
+	philo->time_of_last_meal = time_in_usec();
 	if (philo->id % 2 == 0)
 	{
 		thinking(p, i);
-		usleep(200);
+		usleep(150);
 	}
 	while (1)
 	{

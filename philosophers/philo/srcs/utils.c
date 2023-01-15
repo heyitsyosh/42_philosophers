@@ -6,37 +6,27 @@
 /*   By: myoshika <myoshika@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/06 19:48:58 by myoshika          #+#    #+#             */
-/*   Updated: 2023/01/12 00:01:02 by myoshika         ###   ########.fr       */
+/*   Updated: 2023/01/15 10:34:50 by myoshika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/philo.h"
-#include <sys/time.h>
+#include <stdio.h>
 #include <limits.h>
 #include <unistd.h>
 
-//time in milliseconds
-long	time_in_ms(void)
+void	print_action(long time, t_philo *philo, t_info *info, char *action)
 {
-	struct timeval	tv;
-
-	gettimeofday(&tv, NULL);
-	return ((tv.tv_sec) * 1000 + (tv.tv_usec) / 1000);
+	pthread_mutex_lock(&info->print);
+	printf("%ld %d %s\n", time, philo->id, action);
+	pthread_mutex_unlock(&info->print);
 }
 
-long	timestamp(t_philo *philo)
+void	precise_sleep(long target_time_usec, t_philo *p)
 {
-	return (time_in_ms() - philo->start_time);
-}
-
-void	precise_sleep(long target_time, t_philo *p)
-{
-	long	start_time;
-
-	start_time = timestamp(p) * 1000;
 	while (1)
 	{
-		if (timestamp(p) * 1000 - start_time >= target_time)
+		if (timestamp_in_ms(p) * 1000 >= target_time_usec)
 			break ;
 		usleep(100);
 	}
