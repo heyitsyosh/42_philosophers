@@ -6,7 +6,7 @@
 /*   By: myoshika <myoshika@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/11 21:15:03 by myoshika          #+#    #+#             */
-/*   Updated: 2023/01/15 10:05:29 by myoshika         ###   ########.fr       */
+/*   Updated: 2023/01/15 11:16:03 by myoshika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,6 @@ typedef struct s_info{
 	bool			should_exit;
 	pthread_mutex_t	*forks;
 	pthread_mutex_t	print;
-	pthread_mutex_t	exit_status;
 	pthread_t		monitor_tid;
 	int				threads_created;
 	bool			overflow;
@@ -63,7 +62,7 @@ long	time_in_usec(void);
 long	timestamp_in_ms(t_philo *philo);
 
 void	precise_sleep(long time_to_sleep_usec, t_philo *p);
-void	print_action(long time, t_philo *philo, t_info *i, char *action);
+bool	print_action(long time, t_philo *philo, t_info *i, char *action);
 
 bool	malloc_forks_and_philos(t_philo **philos, t_info *i);
 bool	make_mutexes(t_philo *philos, t_info *i);
@@ -74,7 +73,6 @@ void	*life(void *p);
 
 void	make_and_detach_monitor(t_philo *philos, t_info *info);
 void	*monitor(void *info);
-bool	should_end_thread(t_info *info);
 
 void	deinitialize(int forks_to_destroy, t_philo *philos, t_info *i);
 

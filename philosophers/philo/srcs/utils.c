@@ -6,7 +6,7 @@
 /*   By: myoshika <myoshika@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/06 19:48:58 by myoshika          #+#    #+#             */
-/*   Updated: 2023/01/15 10:34:50 by myoshika         ###   ########.fr       */
+/*   Updated: 2023/01/15 11:12:42 by myoshika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,11 +15,17 @@
 #include <limits.h>
 #include <unistd.h>
 
-void	print_action(long time, t_philo *philo, t_info *info, char *action)
+bool	print_action(long time, t_philo *philo, t_info *info, char *action)
 {
 	pthread_mutex_lock(&info->print);
+	if (info->should_exit)
+	{
+		pthread_mutex_unlock(&info->print);
+		return (false);
+	}
 	printf("%ld %d %s\n", time, philo->id, action);
 	pthread_mutex_unlock(&info->print);
+	return (true);
 }
 
 void	precise_sleep(long target_time_usec, t_philo *p)

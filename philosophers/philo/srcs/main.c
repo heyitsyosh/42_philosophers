@@ -6,7 +6,7 @@
 /*   By: myoshika <myoshika@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/09 19:04:13 by myoshika          #+#    #+#             */
-/*   Updated: 2023/01/15 07:32:38 by myoshika         ###   ########.fr       */
+/*   Updated: 2023/01/15 11:10:05 by myoshika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,6 @@ void	deinitialize(int forks_to_destroy, t_philo *philos, t_info *info)
 		pthread_mutex_destroy(&info->forks[forks_to_destroy]);
 	if (forks_to_destroy < 0)
 		pthread_mutex_destroy(&info->print);
-	if (forks_to_destroy < -1)
-		pthread_mutex_destroy(&info->exit_status);
 	free(info->forks);
 	free(philos);
 }

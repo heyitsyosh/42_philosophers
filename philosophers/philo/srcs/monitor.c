@@ -6,7 +6,7 @@
 /*   By: myoshika <myoshika@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/11 21:13:49 by myoshika          #+#    #+#             */
-/*   Updated: 2023/01/15 11:02:45 by myoshika         ###   ########.fr       */
+/*   Updated: 2023/01/15 11:16:21 by myoshika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,18 +25,6 @@ void	make_and_detach_monitor(t_philo *philos, t_info *info)
 		printf("failed to detach thread\n");
 }
 
-bool	should_end_thread(t_info *info)
-{
-	pthread_mutex_lock(&info->exit_status);
-	if (info->should_exit)
-	{
-		pthread_mutex_unlock(&info->exit_status);
-		return (true);
-	}
-	pthread_mutex_unlock(&info->exit_status);
-	return (false);
-}
-
 static bool	eating_requirement_met(t_philo *philos, t_info *info)
 {
 	int	i;
@@ -50,7 +38,7 @@ static bool	eating_requirement_met(t_philo *philos, t_info *info)
 			return (false);
 		i++;
 	}
-	pthread_mutex_lock(&info->exit_status);
+	pthread_mutex_lock(&info->print);
 	return (true);
 }
 
@@ -81,8 +69,7 @@ void	*monitor(void *philo)
 		starving_philosopher = find_starving(time_in_usec(), philos, info);
 		if (starving_philosopher != -1)
 		{
-			pthread_mutex_lock(&info->exit_status);
-			printf("%ld, %d", timestamp_in_ms(&philos[starving_philosopher]), starving_philosopher);
+			pthread_mutex_lock(&info->print);
 			print_action(timestamp_in_ms(&philos[starving_philosopher]), \
 				&philos[starving_philosopher], info, DIE_MSG);
 			break ;
@@ -90,6 +77,6 @@ void	*monitor(void *philo)
 		usleep(1000);
 	}
 	info->should_exit = true;
-	pthread_mutex_unlock(&info->exit_status);
+	pthread_mutex_unlock(&info->print);
 	return (NULL);
 }

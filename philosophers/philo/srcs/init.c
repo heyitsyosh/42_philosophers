@@ -6,7 +6,7 @@
 /*   By: myoshika <myoshika@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/06 23:15:45 by myoshika          #+#    #+#             */
-/*   Updated: 2023/01/15 07:32:36 by myoshika         ###   ########.fr       */
+/*   Updated: 2023/01/15 11:09:13 by myoshika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,11 +63,6 @@ bool	make_mutexes(t_philo *philos, t_info *info)
 	if (pthread_mutex_init(&info->print, NULL))
 	{
 		deinitialize(-1, philos, info);
-		return (false);
-	}
-	if (pthread_mutex_init(&info->exit_status, NULL))
-	{
-		deinitialize(-2, philos, info);
 		return (false);
 	}
 	i = 0;
