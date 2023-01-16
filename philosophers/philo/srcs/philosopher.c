@@ -6,7 +6,7 @@
 /*   By: myoshika <myoshika@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/03 23:29:10 by myoshika          #+#    #+#             */
-/*   Updated: 2023/01/16 08:40:14 by myoshika         ###   ########.fr       */
+/*   Updated: 2023/01/16 09:13:00 by myoshika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,6 +64,8 @@ static bool	sleeping(t_philo *p, t_info *i)
 	if (!print_action(sleeping_start_time, p, i, SLEEP_MSG))
 		return (false);
 	sleep_till(sleeping_start_time + i->time_to_sleep / 1000, p);
+	if (p->id % 2 == 0)
+		usleep(100);
 	return (true);
 }
 
