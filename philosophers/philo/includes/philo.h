@@ -6,7 +6,7 @@
 /*   By: myoshika <myoshika@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/11 21:15:03 by myoshika          #+#    #+#             */
-/*   Updated: 2023/01/21 22:30:55 by myoshika         ###   ########.fr       */
+/*   Updated: 2023/01/22 07:43:44 by myoshika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,8 @@
 
 # include <stdbool.h>
 # include <pthread.h>
+
+# define MAX_PHILOS 200
 
 # define FORK_MSG "has taken a fork"
 # define EAT_MSG "is eating"

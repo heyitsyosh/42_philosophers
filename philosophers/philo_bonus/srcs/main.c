@@ -6,7 +6,7 @@
 /*   By: myoshika <myoshika@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/07 02:14:48 by myoshika          #+#    #+#             */
-/*   Updated: 2023/01/21 23:11:42 by myoshika         ###   ########.fr       */
+/*   Updated: 2023/01/22 06:41:56 by myoshika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,6 @@ int	main(int argc, char **argv)
 	philos = malloc(sizeof(t_philo) * i.num_of_philosophers);
 	if (!philos)
 		exit (EXIT_SUCCESS);
-	make_forks(&i);
-	make_philos(&i);
+	make_semaphores(&i);
+	make_philos(philos, &i);
 }

@@ -6,7 +6,7 @@
 /*   By: myoshika <myoshika@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/09 23:32:06 by myoshika          #+#    #+#             */
-/*   Updated: 2023/01/15 21:08:47 by myoshika         ###   ########.fr       */
+/*   Updated: 2023/01/22 07:44:12 by myoshika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,8 @@ static bool	check_range(int argc, t_info *info)
 		return (false);
 	if (info->num_of_philosophers < 0 || info->time_to_die <= 0
 		|| info->time_to_eat <= 0 || info->time_to_sleep <= 0)
+		return (false);
+	if (info->num_of_philosophers > MAX_PHILOS)
 		return (false);
 	if (argc == 6 && info->meals_to_eat < 0)
 		return (false);
