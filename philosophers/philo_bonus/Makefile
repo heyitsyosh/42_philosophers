@@ -1,7 +1,12 @@
 NAME = philo_bonus
 
-SRC_FILES = 
-SRCS = $(addsuffix .c, $(SRC_FILES))
+FILES = main\
+		convert_input\
+		init\
+		philosopher\
+		time_utils\
+		utils
+SRCS = $(foreach src,$(FILES),./srcs/$(src).c)
 OBJS = $(SRCS:.c=.o)
 
 CFLAGS = -Wall -Wextra -Werror
