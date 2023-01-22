@@ -6,7 +6,7 @@
 /*   By: myoshika <myoshika@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/11 21:15:03 by myoshika          #+#    #+#             */
-/*   Updated: 2023/01/22 07:43:44 by myoshika         ###   ########.fr       */
+/*   Updated: 2023/01/22 09:05:40 by myoshika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,6 @@ typedef struct s_philo{
 }	t_philo;
 
 bool	convert_input(int argc, char **argv, t_info *p);
-
 int		philo_atoi(const char *str, t_info *p);
 
 long	time_in_ms(void);

@@ -4,12 +4,13 @@ FILES = main\
 		convert_input\
 		init\
 		philosopher\
+		monitor\
 		time_utils\
 		utils
 SRCS = $(foreach src,$(FILES),./srcs/$(src).c)
 OBJS = $(SRCS:.c=.o)
 
-CFLAGS = -Wall -Wextra -Werror
+CFLAGS = -Wall -Wextra -Werror -pthread
 
 #--------------------------------------------------------------------------#
 
