@@ -6,7 +6,7 @@
 /*   By: myoshika <myoshika@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/11 21:13:49 by myoshika          #+#    #+#             */
-/*   Updated: 2023/01/15 19:22:26 by myoshika         ###   ########.fr       */
+/*   Updated: 2023/01/24 06:22:44 by myoshika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,7 @@ void	*monitor(void *philo)
 	usleep(info->time_to_die / 2);
 	while (!eating_requirement_met(philos, info))
 	{
-		starving_philosopher = find_starving(time_in_usec(), philos, info);
+		starving_philosopher = find_starving(time_in_ms(), philos, info);
 		if (starving_philosopher != -1)
 		{
 			pthread_mutex_lock(&info->print);
