@@ -6,19 +6,23 @@
 /*   By: myoshika <myoshika@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/07 02:14:48 by myoshika          #+#    #+#             */
-/*   Updated: 2023/01/22 09:02:02 by myoshika         ###   ########.fr       */
+/*   Updated: 2023/01/24 07:15:55 by myoshika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/philo_bonus.h"
 #include <stdlib.h>
 #include <stdio.h>
+#include <sys/wait.h>
 
 void	deinitialize(t_philo *philos, t_info *info)
 {
 	sem_close(info->sem_lock);
 	sem_close(info->sem_print);
 	sem_close(info->forks);
+	sem_unlink("sem_lock");
+	sem_unlink("sem_print");
+	sem_unlink("forks");
 	free(philos);
 }
 
@@ -36,7 +40,7 @@ int	main(int argc, char **argv)
 	if (!philos)
 		exit (EXIT_FAILURE);
 	make_semaphores(&info);
-	make_monitor(philos, &info);
 	make_philos(philos, &info);
+	make_monitor(philos, &info);
 	deinitialize(philos, &info);
 }

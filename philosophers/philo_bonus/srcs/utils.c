@@ -6,7 +6,7 @@
 /*   By: myoshika <myoshika@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/06 19:48:58 by myoshika          #+#    #+#             */
-/*   Updated: 2023/01/22 08:31:51 by myoshika         ###   ########.fr       */
+/*   Updated: 2023/01/24 06:56:49 by myoshika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ void	set_start_time(t_philo *philo, t_info *info)
 {
 	philo->start_time_ms = time_in_ms();
 	sem_wait(info->sem_lock);
-	philo->time_of_last_meal = time_in_usec();
+	philo->time_of_last_meal = time_in_ms();
 	sem_post(info->sem_lock);
 }
 
@@ -32,7 +32,7 @@ bool	print_action(long time, t_philo *philo, t_info *info, char *action)
 		return (false);
 	}
 	printf("%ld %d %s\n", time, philo->id, action);
-	sem_post(info->sem_lock);
+	sem_post(info->sem_print);
 	return (true);
 }
 
