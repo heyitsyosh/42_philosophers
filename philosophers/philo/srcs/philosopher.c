@@ -6,7 +6,7 @@
 /*   By: myoshika <myoshika@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/03 23:29:10 by myoshika          #+#    #+#             */
-/*   Updated: 2023/01/16 09:13:00 by myoshika         ###   ########.fr       */
+/*   Updated: 2023/01/24 06:29:09 by myoshika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,9 +45,9 @@ static bool	eating(t_philo *p, t_info *i)
 		return (false);
 	}
 	pthread_mutex_lock(&i->philo_mtx[p->id - 1]);
-	p->time_of_last_meal = time_in_usec();
+	p->time_of_last_meal = time_in_ms();
 	pthread_mutex_unlock(&i->philo_mtx[p->id - 1]);
-	sleep_till(p->right_fork_timestamp_ms + i->time_to_eat / 1000, p);
+	sleep_till(p->right_fork_timestamp_ms + i->time_to_eat, p);
 	pthread_mutex_lock(&i->philo_mtx[p->id - 1]);
 	p->meals_eaten++;
 	pthread_mutex_unlock(&i->philo_mtx[p->id - 1]);
@@ -63,9 +63,7 @@ static bool	sleeping(t_philo *p, t_info *i)
 	sleeping_start_time = timestamp_in_ms(p);
 	if (!print_action(sleeping_start_time, p, i, SLEEP_MSG))
 		return (false);
-	sleep_till(sleeping_start_time + i->time_to_sleep / 1000, p);
-	if (p->id % 2 == 0)
-		usleep(100);
+	sleep_till(sleeping_start_time + i->time_to_sleep, p);
 	return (true);
 }
 
