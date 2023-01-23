@@ -6,7 +6,7 @@
 /*   By: myoshika <myoshika@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/09 18:43:21 by myoshika          #+#    #+#             */
-/*   Updated: 2023/01/22 09:09:08 by myoshika         ###   ########.fr       */
+/*   Updated: 2023/01/24 07:10:34 by myoshika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ typedef struct s_info{
 	sem_t		*forks;
 	bool		should_exit;
 	bool		overflow;
-	pthread_t	monitor_tid;
+	pid_t		*philo_pid;
 }	t_info;
 
 typedef struct s_philo{

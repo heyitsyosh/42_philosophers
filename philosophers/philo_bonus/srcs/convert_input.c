@@ -6,7 +6,7 @@
 /*   By: myoshika <myoshika@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/09 23:32:06 by myoshika          #+#    #+#             */
-/*   Updated: 2023/01/22 07:52:08 by myoshika         ###   ########.fr       */
+/*   Updated: 2023/01/24 06:56:35 by myoshika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,8 +54,6 @@ static bool	check_args(int argc, char **argv)
 	return (true);
 }
 
-//"time_to_*" variables are arguments given in milliseconds.
-//They are converted to microseconds in this function.
 bool	convert_input(int argc, char **argv, t_info *info)
 {
 	if (!check_args(argc, argv))
@@ -63,11 +61,11 @@ bool	convert_input(int argc, char **argv, t_info *info)
 	info->overflow = false;
 	info->should_exit = false;
 	info->num_of_philosophers = philo_atoi(argv[1], info);
-	info->time_to_die = philo_atoi(argv[2], info) * 1000;
-	info->time_to_eat = philo_atoi(argv[3], info) * 1000;
-	info->time_to_sleep = philo_atoi(argv[4], info) * 1000;
+	info->time_to_die = philo_atoi(argv[2], info);
+	info->time_to_eat = philo_atoi(argv[3], info);
+	info->time_to_sleep = philo_atoi(argv[4], info);
 	if (argc == 6)
-		info->meals_to_eat = philo_atoi(argv[5], info) * 1000;
+		info->meals_to_eat = philo_atoi(argv[5], info);
 	if (!check_range(argc, info))
 		return (false);
 	if (argc != 6)

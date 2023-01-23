@@ -11,6 +11,7 @@ SRCS = $(foreach src,$(FILES),./srcs/$(src).c)
 OBJS = $(SRCS:.c=.o)
 
 CFLAGS = -Wall -Wextra -Werror -pthread
+#-fsanitize=thread -g3
 
 #--------------------------------------------------------------------------#
 
