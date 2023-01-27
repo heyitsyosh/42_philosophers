@@ -6,7 +6,7 @@
 /*   By: myoshika <myoshika@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/03 23:29:10 by myoshika          #+#    #+#             */
-/*   Updated: 2023/01/24 06:57:15 by myoshika         ###   ########.fr       */
+/*   Updated: 2023/01/27 01:39:05 by myoshika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,8 @@ static bool	taking_forks(t_philo *p, t_info *i)
 	sem_wait(i->forks);
 	sem_wait(i->forks);
 	p->right_fork_timestamp_ms = timestamp_in_ms(p);
-	if (!print_action(p->right_fork_timestamp_ms, p, i, FORK_MSG))
+	if (!print_action(p->right_fork_timestamp_ms, p, i, FORK_MSG)
+		|| !print_action(p->right_fork_timestamp_ms, p, i, EAT_MSG))
 	{
 		sem_post(i->forks);
 		sem_post(i->forks);
@@ -36,18 +37,14 @@ static bool	taking_forks(t_philo *p, t_info *i)
 
 static bool	eating(t_philo *p, t_info *i)
 {
-	if (!print_action(p->right_fork_timestamp_ms, p, i, EAT_MSG))
-	{
-		sem_post(i->forks);
-		sem_post(i->forks);
-		return (false);
-	}
 	sem_wait(i->sem_lock);
 	p->time_of_last_meal = time_in_ms();
 	sem_post(i->sem_lock);
 	sleep_till(p->right_fork_timestamp_ms + i->time_to_eat, p);
 	sem_wait(i->sem_lock);
 	p->meals_eaten++;
+	if (i->meals_to_eat != -1 && p->meals_eaten == i->meals_to_eat)
+		sem_post(i->ate_minimum_req);
 	sem_post(i->sem_lock);
 	sem_post(i->forks);
 	sem_post(i->forks);
@@ -75,6 +72,8 @@ static bool	thinking(t_philo *p, t_info *i)
 void	life(t_philo *p, t_info *i)
 {
 	set_start_time(p, i);
+	if (i->meals_to_eat != -1)
+		sem_wait(i->ate_minimum_req);
 	if (p->id % 2 == 0
 		|| (p->id == i->num_of_philosophers && i->num_of_philosophers != 1))
 	{
@@ -92,5 +91,4 @@ void	life(t_philo *p, t_info *i)
 		if (!thinking(p, i))
 			break ;
 	}
-	exit (0);
 }
