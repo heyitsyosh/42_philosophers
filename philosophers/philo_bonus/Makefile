@@ -5,6 +5,7 @@ FILES = main\
 		init\
 		philosopher\
 		monitor\
+		monitor_utils\
 		time_utils\
 		utils
 SRCS = $(foreach src,$(FILES),./srcs/$(src).c)
