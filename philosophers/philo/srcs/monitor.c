@@ -6,7 +6,7 @@
 /*   By: myoshika <myoshika@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/11 21:13:49 by myoshika          #+#    #+#             */
-/*   Updated: 2023/01/24 07:06:37 by myoshika         ###   ########.fr       */
+/*   Updated: 2023/01/30 20:22:07 by myoshika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,8 @@ void	make_and_detach_monitor(t_philo *philos, t_info *info)
 		printf("failed to create thread\n");
 		return ;
 	}
-	if (pthread_detach(info->monitor_tid) != 0)
-		printf("failed to detach thread\n");
+	if (pthread_join(info->monitor_tid, NULL) != 0)
+		printf("failed to join thread\n");
 }
 
 static bool	eating_requirement_met(t_philo *philos, t_info *info)
