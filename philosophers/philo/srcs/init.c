@@ -6,12 +6,12 @@
 /*   By: myoshika <myoshika@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/06 23:15:45 by myoshika          #+#    #+#             */
-/*   Updated: 2023/01/30 19:47:01 by myoshika         ###   ########.fr       */
+/*   Updated: 2023/01/31 14:53:41 by myoshika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/philo.h"
-#include <stdio.h>
+#include <unistd.h>
 #include <stdlib.h>
 
 //left and right fork of last philosopher is flipped for mutex hierarchy
@@ -39,7 +39,7 @@ int	make_philos(t_philo *philos, t_info *info)
 		init_philo(&philos[i], info, i);
 		if (pthread_create(&philos[i].tid, NULL, life, &philos[i]) != 0)
 		{
-			printf("failed to create thread\n");
+			ft_putstr_fd("failed to create thread\n", STDERR_FILENO);
 			return (i);
 		}
 		i++;
@@ -52,7 +52,7 @@ void	join_philo_threads(t_philo *philos, t_info *info)
 	while (info->threads_created-- > 0)
 	{
 		if (pthread_join(philos[info->threads_created].tid, NULL) != 0)
-			printf("failed to join thread\n");
+			ft_putstr_fd("failed to join thread\n", STDERR_FILENO);
 	}
 }
 

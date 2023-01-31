@@ -6,7 +6,7 @@
 /*   By: myoshika <myoshika@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/11 21:13:49 by myoshika          #+#    #+#             */
-/*   Updated: 2023/01/30 20:22:07 by myoshika         ###   ########.fr       */
+/*   Updated: 2023/01/31 14:54:52 by myoshika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,15 +14,15 @@
 #include <stdio.h>
 #include <unistd.h>
 
-void	make_and_detach_monitor(t_philo *philos, t_info *info)
+void	make_and_join_monitor(t_philo *philos, t_info *info)
 {
 	if (pthread_create(&info->monitor_tid, NULL, monitor, philos) != 0)
 	{
-		printf("failed to create thread\n");
+		ft_putstr_fd("failed to create thread\n", STDERR_FILENO);
 		return ;
 	}
 	if (pthread_join(info->monitor_tid, NULL) != 0)
-		printf("failed to join thread\n");
+		ft_putstr_fd("failed to join thread\n", STDERR_FILENO);
 }
 
 static bool	eating_requirement_met(t_philo *philos, t_info *info)

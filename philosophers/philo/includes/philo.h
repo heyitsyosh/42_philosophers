@@ -6,7 +6,7 @@
 /*   By: myoshika <myoshika@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/11 21:15:03 by myoshika          #+#    #+#             */
-/*   Updated: 2023/01/24 06:28:14 by myoshika         ###   ########.fr       */
+/*   Updated: 2023/01/31 14:49:17 by myoshika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,12 +60,12 @@ int		philo_atoi(const char *str, t_info *p);
 
 long	time_in_ms(void);
 long	time_in_usec(void);
-long	usec_to_ms(long usec);
 long	timestamp_in_ms(t_philo *philo);
 void	set_start_time(t_philo *philo, t_info *i);
 
 void	sleep_till(long target_time_ms, t_philo *philo);
 bool	print_action(long time, t_philo *philo, t_info *i, char *action);
+void	ft_putstr_fd(char *s, int fd);
 
 bool	malloc_forks_and_philos(t_philo **philos, t_info *i);
 bool	make_mutexes(t_info *i);
@@ -74,7 +74,7 @@ void	join_philo_threads(t_philo *philos, t_info *info);
 
 void	*life(void *p);
 
-void	make_and_detach_monitor(t_philo *philos, t_info *info);
+void	make_and_join_monitor(t_philo *philos, t_info *info);
 void	*monitor(void *info);
 
 #endif

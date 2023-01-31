@@ -6,12 +6,12 @@
 /*   By: myoshika <myoshika@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/09 19:04:13 by myoshika          #+#    #+#             */
-/*   Updated: 2023/01/15 18:12:27 by myoshika         ###   ########.fr       */
+/*   Updated: 2023/01/31 14:54:36 by myoshika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/philo.h"
-#include <stdio.h>
+#include <unistd.h>
 #include <stdlib.h>
 
 static void	deinitialize(t_philo *philos, t_info *info)
@@ -38,7 +38,7 @@ int	main(int argc, char **argv)
 
 	if (!convert_input(argc, argv, &info))
 	{
-		printf("invalid arguments\n");
+		ft_putstr_fd("invalid arguments\n", STDERR_FILENO);
 		return (0);
 	}
 	if (!malloc_forks_and_philos(&philos, &info))
@@ -46,7 +46,7 @@ int	main(int argc, char **argv)
 	if (!make_mutexes(&info))
 		return (1);
 	info.threads_created = make_philos(philos, &info);
-	make_and_detach_monitor(philos, &info);
+	make_and_join_monitor(philos, &info);
 	join_philo_threads(philos, &info);
 	deinitialize(philos, &info);
 }
