@@ -6,7 +6,7 @@
 /*   By: myoshika <myoshika@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/06 19:48:58 by myoshika          #+#    #+#             */
-/*   Updated: 2023/01/24 06:27:21 by myoshika         ###   ########.fr       */
+/*   Updated: 2023/01/31 14:50:50 by myoshika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@ void	set_start_time(t_philo *philo, t_info *i)
 	philo->time_of_last_meal = time_in_ms();
 	pthread_mutex_unlock(&i->philo_mtx[philo->id - 1]);
 }
+
 
 bool	print_action(long time, t_philo *philo, t_info *info, char *action)
 {
@@ -42,41 +43,28 @@ void	sleep_till(long target_time_ms, t_philo *philo)
 		usleep(100);
 }
 
-static int	make_int(const char *str, size_t i, int sign, t_info *info)
+static size_t	ft_strlen(const char *s)
 {
-	long	num;
+	size_t	len;
 
-	num = 0;
-	while (str[i] && (str[i] >= '0' && str[i] <= '9'))
-	{
-		if (sign == 1 && ((num > INT_MAX / 10)
-				|| (num == INT_MAX / 10 && str[i] - '0' > INT_MAX % 10)))
-			info->overflow = true;
-		else if (sign == -1 && ((num < INT_MIN / 10)
-				|| (num == INT_MIN / 10 && str[i] - '0' > INT_MIN % 10 * -1)))
-			info->overflow = true;
-		if (info->overflow)
-			break ;
-		num = (num * 10) + sign * (str[i] - '0');
-		i++;
-	}
-	return ((int)num);
+	len = 0;
+	while (*(s + len) != '\0')
+		len++;
+	return (len);
 }
 
-int	philo_atoi(const char *str, t_info *info)
+void	ft_putstr_fd(char *s, int fd)
 {
-	size_t	i;
-	int		sign;
+	size_t	s_len;
 
-	sign = 1;
-	i = 0;
-	while (*(str + i) == 32 || (9 <= *(str + i) && *(str + i) <= 13))
-		i++;
-	if ((*(str + i) == '+' || *(str + i) == '-') && *(str + i))
+	if (s == NULL)
+		return ;
+	s_len = ft_strlen(s);
+	while (s_len > INT_MAX)
 	{
-		if (*(str + i) == '-')
-			sign = -1;
-		i++;
+		write(fd, s, INT_MAX);
+		s += INT_MAX;
+		s_len -= INT_MAX;
 	}
-	return (make_int(str, i, sign, info));
+	write(fd, s, s_len);
 }

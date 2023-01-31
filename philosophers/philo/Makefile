@@ -6,7 +6,8 @@ FILES = main\
 		philosopher\
 		monitor\
 		time_utils\
-		utils
+		utils\
+		atoi
 SRCS = $(foreach src,$(FILES),./srcs/$(src).c)
 OBJS = $(SRCS:.c=.o)
 
