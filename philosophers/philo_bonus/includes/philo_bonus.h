@@ -6,7 +6,7 @@
 /*   By: myoshika <myoshika@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/09 18:43:21 by myoshika          #+#    #+#             */
-/*   Updated: 2023/01/27 04:41:42 by myoshika         ###   ########.fr       */
+/*   Updated: 2023/02/03 04:13:48 by myoshika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,8 +27,8 @@
 
 # define SEM_FORKS "sem_forks"
 # define SEM_PRINT "sem_print"
-# define SEM_LOCK "sem_lock"
-# define SEM_MINIMUM_REQUIREMENT "ate_minimum_requirement"
+# define SEM_MIN_REQ "ate_minimum_requirement"
+# define SEM_STOP "sem_stop_simulation"
 
 typedef struct s_info{
 	int			num_of_philosophers;
@@ -37,46 +37,49 @@ typedef struct s_info{
 	long		time_to_sleep;
 	int			meals_to_eat;
 	sem_t		*sem_print;
-	sem_t		*sem_lock;
+	sem_t		**sem_lock;
 	sem_t		*forks;
 	sem_t		*ate_minimum_req;
-	bool		should_exit;
+	sem_t		*stop_simulation;
 	bool		overflow;
-	bool		philos_killed;
 	pid_t		*philo_pid;
-	pthread_t	*starvation_monitors;
 	pthread_t	times_eaten_monitor_tid;
+	pthread_t	stop_simulation_monitor_tid;
 }	t_info;
 
 typedef struct s_philo{
-	t_info	*info;
-	int		id;
-	int		meals_eaten;
-	long	start_time_ms;
-	long	time_of_last_meal;
-	long	right_fork_timestamp_ms;
+	t_info		*info;
+	int			id;
+	int			meals_eaten;
+	long		start_time_ms;
+	long		time_of_last_meal;
+	long		right_fork_timestamp_ms;
 }	t_philo;
 
-bool		convert_input(int argc, char **argv, t_info *p);
-int			philo_atoi(const char *str, t_info *p);
+long	time_in_ms(void);
+long	time_in_usec(void);
+long	timestamp_in_ms(t_philo *philo);
 
-long		time_in_ms(void);
-long		time_in_usec(void);
-long		usec_to_ms(long usec);
-long		timestamp_in_ms(t_philo *philo);
-void		set_start_time(t_philo *philo, t_info *i);
+int		philo_atoi(const char *str, t_info *p);
+char	*ft_itoa(int n);
+void	ft_putstr_fd(char *s, int fd);
+void	set_start_time(t_philo *philo, t_info *i);
+void	sleep_till(long target_time_ms, t_philo *philo);
+void	print_action(long time, t_philo *philo, t_info *info, char *action);
+void	print_error_and_exit(char *error_message);
+void	kill_all_philos(t_info *info);
 
-void		make_semaphores(t_info *info);
-void		make_monitor(t_philo *philos, t_info *info);
-pthread_t	make_times_eaten_monitor(t_info *info);
-void		make_philos(t_philo *philo, t_info *info);
+bool	convert_input(int argc, char **argv, t_info *p);
+void	make_semaphores(t_info *info);
+void	make_philos(t_philo *philo, t_info *info);
+void	make_starvation_monitor(t_philo *philo, t_info *info);
+void	make_times_eaten_monitor(t_info *info);
+void	make_stop_simulation_monitor(t_info *info);
+void	wait_for_monitors_to_detect(t_info *info);
 
-void		*starvation_monitor(void *philo);
-void		*times_eaten_monitor(void *ptr_to_info);
-void		life(t_philo *p, t_info *i);
-
-void		sleep_till(long target_time_ms, t_philo *philo);
-bool		print_action(long time, t_philo *philo, t_info *i, char *action);
-void		kill_all_philos(t_info *info);
+void	life(t_philo *p, t_info *i);
+void	*starvation_monitor(void *philo);
+void	*times_eaten_monitor(void *ptr_to_info);
+void	*stop_simulation_monitor(void *ptr_to_info);
 
 #endif

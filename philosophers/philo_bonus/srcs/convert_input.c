@@ -6,7 +6,7 @@
 /*   By: myoshika <myoshika@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/09 23:32:06 by myoshika          #+#    #+#             */
-/*   Updated: 2023/01/25 03:13:53 by myoshika         ###   ########.fr       */
+/*   Updated: 2023/02/03 04:04:02 by myoshika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,8 +59,6 @@ bool	convert_input(int argc, char **argv, t_info *info)
 	if (!check_args(argc, argv))
 		return (false);
 	info->overflow = false;
-	info->should_exit = false;
-	info->philos_killed = false;
 	info->num_of_philosophers = philo_atoi(argv[1], info);
 	info->time_to_die = philo_atoi(argv[2], info);
 	info->time_to_eat = philo_atoi(argv[3], info);
