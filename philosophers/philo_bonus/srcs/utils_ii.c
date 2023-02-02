@@ -1,45 +1,50 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   utils.c                                            :+:      :+:    :+:   */
+/*   utils_ii.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: myoshika <myoshika@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/11/06 19:48:58 by myoshika          #+#    #+#             */
-/*   Updated: 2023/01/24 06:56:49 by myoshika         ###   ########.fr       */
+/*   Created: 2023/02/03 02:03:43 by myoshika          #+#    #+#             */
+/*   Updated: 2023/02/03 04:00:55 by myoshika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/philo_bonus.h"
-#include <stdio.h>
 #include <limits.h>
+#include <stdlib.h>
 #include <unistd.h>
 
-void	set_start_time(t_philo *philo, t_info *info)
+void	print_error_and_exit(char *error_message)
 {
-	philo->start_time_ms = time_in_ms();
-	sem_wait(info->sem_lock);
-	philo->time_of_last_meal = time_in_ms();
-	sem_post(info->sem_lock);
+	ft_putstr_fd(error_message, STDERR_FILENO);
+	exit(EXIT_FAILURE);
 }
 
-bool	print_action(long time, t_philo *philo, t_info *info, char *action)
+static size_t	ft_strlen(const char *s)
 {
-	sem_wait(info->sem_print);
-	if (info->should_exit)
+	size_t	len;
+
+	len = 0;
+	while (*(s + len) != '\0')
+		len++;
+	return (len);
+}
+
+void	ft_putstr_fd(char *s, int fd)
+{
+	size_t	s_len;
+
+	if (s == NULL)
+		return ;
+	s_len = ft_strlen(s);
+	while (s_len > INT_MAX)
 	{
-		sem_post(info->sem_print);
-		return (false);
+		write(fd, s, INT_MAX);
+		s += INT_MAX;
+		s_len -= INT_MAX;
 	}
-	printf("%ld %d %s\n", time, philo->id, action);
-	sem_post(info->sem_print);
-	return (true);
-}
-
-void	sleep_till(long target_time_ms, t_philo *philo)
-{
-	while (timestamp_in_ms(philo) < target_time_ms)
-		usleep(100);
+	write(fd, s, s_len);
 }
 
 static int	make_int(const char *str, size_t i, int sign, t_info *info)

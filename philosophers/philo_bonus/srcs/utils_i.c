@@ -1,39 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   utils.c                                            :+:      :+:    :+:   */
+/*   utils_i.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: myoshika <myoshika@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/06 19:48:58 by myoshika          #+#    #+#             */
-/*   Updated: 2023/02/02 23:11:49 by myoshika         ###   ########.fr       */
+/*   Updated: 2023/02/03 04:12:56 by myoshika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/philo.h"
+#include "../includes/philo_bonus.h"
 #include <stdio.h>
 #include <limits.h>
 #include <unistd.h>
+#include <stdlib.h>
 
-void	set_start_time(t_philo *philo, t_info *i)
+void	set_start_time(t_philo *philo, t_info *info)
 {
 	philo->start_time_ms = time_in_ms();
-	pthread_mutex_lock(&i->philo_mtx[philo->id - 1]);
+	sem_wait(info->sem_lock[philo->id]);
 	philo->time_of_last_meal = time_in_ms();
-	pthread_mutex_unlock(&i->philo_mtx[philo->id - 1]);
+	sem_post(info->sem_lock[philo->id]);
 }
 
-bool	print_action(long time, t_philo *philo, t_info *info, char *action)
+void	print_action(long time, t_philo *philo, t_info *info, char *action)
 {
-	pthread_mutex_lock(&info->print);
-	if (info->should_exit)
-	{
-		pthread_mutex_unlock(&info->print);
-		return (false);
-	}
+	sem_wait(info->sem_print);
 	printf("%ld %d %s\n", time, philo->id, action);
-	pthread_mutex_unlock(&info->print);
-	return (true);
+	sem_post(info->sem_print);
 }
 
 void	sleep_till(long target_time_ms, t_philo *philo)
@@ -42,28 +37,46 @@ void	sleep_till(long target_time_ms, t_philo *philo)
 		usleep(100);
 }
 
-static size_t	ft_strlen(const char *s)
+static void	put_in_digits(char *arr, long buf)
 {
-	size_t	len;
+	int	div;
 
-	len = 0;
-	while (*(s + len) != '\0')
-		len++;
-	return (len);
+	div = 1;
+	if (buf < 0)
+	{
+		*arr = '-';
+		buf *= -1;
+		arr++;
+	}
+	while (buf / 10 >= div)
+		div *= 10;
+	while (div != 0)
+	{
+		*arr = (buf / div) + '0';
+		buf %= div;
+		div /= 10;
+		arr++;
+	}
+	*(arr) = '\0';
 }
 
-void	ft_putstr_fd(char *s, int fd)
+char	*ft_itoa(int n)
 {
-	size_t	s_len;
+	char	*arr;
+	long	buf;
+	int		digits;	
 
-	if (s == NULL)
-		return ;
-	s_len = ft_strlen(s);
-	while (s_len > INT_MAX)
+	digits = 0;
+	if (n < 0 || n == 0)
+		digits++;
+	while (n != 0)
 	{
-		write(fd, s, INT_MAX);
-		s += INT_MAX;
-		s_len -= INT_MAX;
+		n /= 10;
+		digits++;
 	}
-	write(fd, s, s_len);
+	arr = (char *)malloc(digits + 1);
+	buf = (long)n;
+	if (arr != NULL)
+		put_in_digits(arr, buf);
+	return (arr);
 }

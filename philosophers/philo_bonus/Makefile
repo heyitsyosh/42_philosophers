@@ -4,10 +4,11 @@ FILES = main\
 		convert_input\
 		init\
 		philosopher\
-		monitor\
-		monitor_utils\
+		monitor_i\
+		monitor_ii\
 		time_utils\
-		utils
+		utils_i\
+		utils_ii
 SRCS = $(foreach src,$(FILES),./srcs/$(src).c)
 OBJS = $(SRCS:.c=.o)
 

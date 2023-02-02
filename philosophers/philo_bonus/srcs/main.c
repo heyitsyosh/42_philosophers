@@ -6,7 +6,7 @@
 /*   By: myoshika <myoshika@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/07 02:14:48 by myoshika          #+#    #+#             */
-/*   Updated: 2023/01/27 04:45:01 by myoshika         ###   ########.fr       */
+/*   Updated: 2023/02/03 04:02:57 by myoshika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,17 +15,23 @@
 #include <stdio.h>
 #include <signal.h>
 #include <sys/wait.h>
+#include <unistd.h>
 
 void	deinitialize(t_philo *philos, t_info *info)
 {
-	sem_close(info->sem_lock);
+	int	i;
+
+	i = 0;
+	while (i < info->num_of_philosophers)
+	{
+		sem_close(info->sem_lock[i]);
+		i++;
+	}
 	sem_close(info->sem_print);
 	sem_close(info->forks);
 	sem_close(info->ate_minimum_req);
-	sem_unlink(SEM_LOCK);
-	sem_unlink(SEM_PRINT);
-	sem_unlink(SEM_FORKS);
-	sem_unlink(SEM_MINIMUM_REQUIREMENT);
+	free(info->philo_pid);
+	free(info->sem_lock);
 	free(philos);
 }
 
@@ -36,15 +42,16 @@ int	main(int argc, char **argv)
 
 	if (!convert_input(argc, argv, &info))
 	{
-		printf("invalid arguments\n");
+		ft_putstr_fd("invalid arguments\n", STDERR_FILENO);
 		return (0);
 	}
 	philos = malloc(sizeof(t_philo) * info.num_of_philosophers);
 	if (!philos)
-		exit (EXIT_FAILURE);
+		print_error_and_exit("malloc failure\n");
 	make_semaphores(&info);
 	make_philos(philos, &info);
 	make_times_eaten_monitor(&info);
+	make_stop_simulation_monitor(&info);
 	wait_for_monitors_to_detect(&info);
 	deinitialize(philos, &info);
 	return (0);
