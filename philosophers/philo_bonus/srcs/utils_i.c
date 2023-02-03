@@ -6,7 +6,7 @@
 /*   By: myoshika <myoshika@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/06 19:48:58 by myoshika          #+#    #+#             */
-/*   Updated: 2023/02/03 04:12:56 by myoshika         ###   ########.fr       */
+/*   Updated: 2023/02/03 06:15:41 by myoshika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,9 +19,9 @@
 void	set_start_time(t_philo *philo, t_info *info)
 {
 	philo->start_time_ms = time_in_ms();
-	sem_wait(info->sem_lock[philo->id]);
+	sem_wait(info->sem_lock[philo->id - 1]);
 	philo->time_of_last_meal = time_in_ms();
-	sem_post(info->sem_lock[philo->id]);
+	sem_post(info->sem_lock[philo->id - 1]);
 }
 
 void	print_action(long time, t_philo *philo, t_info *info, char *action)

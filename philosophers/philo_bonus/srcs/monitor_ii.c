@@ -6,7 +6,7 @@
 /*   By: myoshika <myoshika@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/27 00:43:46 by myoshika          #+#    #+#             */
-/*   Updated: 2023/02/03 04:12:28 by myoshika         ###   ########.fr       */
+/*   Updated: 2023/02/03 09:23:54 by myoshika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,16 +44,14 @@ void	*stop_simulation_monitor(void *ptr_to_info)
 	return (NULL);
 }
 
-/* ************************************************************************** */
-
 void	kill_all_philos(t_info *info)
 {
 	int	i;
 
 	i = 0;
-	while (i <= info->num_of_philosophers)
+	while (i < info->num_of_philosophers)
 	{
-		kill(info->philo_pid[i], SIGKILL);
+		kill(info->philo_pid[i], SIGINT);
 		i++;
 	}
 }
