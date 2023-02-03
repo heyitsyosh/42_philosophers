@@ -6,7 +6,7 @@
 /*   By: myoshika <myoshika@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/22 08:49:07 by myoshika          #+#    #+#             */
-/*   Updated: 2023/02/03 09:12:59 by myoshika         ###   ########.fr       */
+/*   Updated: 2023/02/03 09:31:14 by myoshika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,7 +83,7 @@ void	*starvation_monitor(void *philo_ptr)
 		if (philo_is_starving(time_in_ms(), philo, info))
 		{
 			sem_wait(info->sem_print);
-			printf("%ld %d %s\n", 
+			printf("%ld %d %s\n",
 				timestamp_in_ms(philo), philo->id + 1, DIE_MSG);
 			break ;
 		}
