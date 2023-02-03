@@ -6,7 +6,7 @@
 /*   By: myoshika <myoshika@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/03 23:29:10 by myoshika          #+#    #+#             */
-/*   Updated: 2023/02/03 04:15:28 by myoshika         ###   ########.fr       */
+/*   Updated: 2023/02/03 09:14:08 by myoshika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,15 +29,15 @@ static void	taking_forks(t_philo *p, t_info *i)
 
 static void	eating(t_philo *p, t_info *i)
 {
-	sem_wait(i->sem_lock[p->id]);
+	sem_wait(i->sem_lock[p->id - 1]);
 	p->time_of_last_meal = time_in_ms();
-	sem_post(i->sem_lock[p->id]);
+	sem_post(i->sem_lock[p->id - 1]);
 	sleep_till(p->right_fork_timestamp_ms + i->time_to_eat, p);
-	sem_wait(i->sem_lock[p->id]);
+	sem_wait(i->sem_lock[p->id - 1]);
 	p->meals_eaten++;
 	if (i->meals_to_eat != -1 && p->meals_eaten == i->meals_to_eat)
 		sem_post(i->ate_minimum_req);
-	sem_post(i->sem_lock[p->id]);
+	sem_post(i->sem_lock[p->id - 1]);
 	sem_post(i->forks);
 	sem_post(i->forks);
 }
