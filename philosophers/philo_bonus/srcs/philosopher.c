@@ -6,7 +6,7 @@
 /*   By: myoshika <myoshika@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/03 23:29:10 by myoshika          #+#    #+#             */
-/*   Updated: 2023/02/03 09:14:08 by myoshika         ###   ########.fr       */
+/*   Updated: 2023/02/03 22:52:25 by myoshika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ static void	eating(t_philo *p, t_info *i)
 	sleep_till(p->right_fork_timestamp_ms + i->time_to_eat, p);
 	sem_wait(i->sem_lock[p->id - 1]);
 	p->meals_eaten++;
-	if (i->meals_to_eat != -1 && p->meals_eaten == i->meals_to_eat)
+	if (p->meals_eaten == i->meals_to_eat)
 		sem_post(i->ate_minimum_req);
 	sem_post(i->sem_lock[p->id - 1]);
 	sem_post(i->forks);
@@ -60,8 +60,7 @@ void	life(t_philo *p, t_info *i)
 {
 	set_start_time(p, i);
 	make_starvation_monitor(p, i);
-	if (p->id % 2 == 0
-		|| (p->id == i->num_of_philosophers && i->num_of_philosophers != 1))
+	if (p->id > i->num_of_philosophers / 2)
 	{
 		thinking(p, i);
 		usleep(70);
