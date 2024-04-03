@@ -6,14 +6,12 @@
 /*   By: myoshika <myoshika@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/03 23:29:10 by myoshika          #+#    #+#             */
-/*   Updated: 2023/02/03 22:52:25 by myoshika         ###   ########.fr       */
+/*   Updated: 2024/04/03 21:09:49 by myoshika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/philo_bonus.h"
-#include <stdio.h>
-#include <unistd.h>
-#include <stdlib.h>
+#include <unistd.h> //usleep
 
 static void	taking_forks(t_philo *p, t_info *i)
 {

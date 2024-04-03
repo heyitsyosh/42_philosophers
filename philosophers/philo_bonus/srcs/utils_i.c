@@ -6,15 +6,14 @@
 /*   By: myoshika <myoshika@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/06 19:48:58 by myoshika          #+#    #+#             */
-/*   Updated: 2023/02/03 06:15:41 by myoshika         ###   ########.fr       */
+/*   Updated: 2024/04/03 21:08:25 by myoshika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/philo_bonus.h"
-#include <stdio.h>
-#include <limits.h>
-#include <unistd.h>
-#include <stdlib.h>
+#include <stdio.h> //printf
+#include <unistd.h> //usleep
+#include <stdlib.h> //malloc
 
 void	set_start_time(t_philo *philo, t_info *info)
 {

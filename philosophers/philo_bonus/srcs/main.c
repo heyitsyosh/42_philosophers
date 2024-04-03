@@ -6,16 +6,13 @@
 /*   By: myoshika <myoshika@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/07 02:14:48 by myoshika          #+#    #+#             */
-/*   Updated: 2023/02/03 04:02:57 by myoshika         ###   ########.fr       */
+/*   Updated: 2024/04/03 21:26:18 by myoshika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/philo_bonus.h"
-#include <stdlib.h>
-#include <stdio.h>
-#include <signal.h>
-#include <sys/wait.h>
-#include <unistd.h>
+#include <stdlib.h> //malloc, free
+#include <unistd.h> //STDERR_FILENO
 
 void	deinitialize(t_philo *philos, t_info *info)
 {

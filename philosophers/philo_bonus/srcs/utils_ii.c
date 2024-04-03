@@ -6,14 +6,14 @@
 /*   By: myoshika <myoshika@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/03 02:03:43 by myoshika          #+#    #+#             */
-/*   Updated: 2023/02/03 04:00:55 by myoshika         ###   ########.fr       */
+/*   Updated: 2024/04/03 21:07:34 by myoshika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/philo_bonus.h"
-#include <limits.h>
-#include <stdlib.h>
-#include <unistd.h>
+#include <limits.h> //INT_MAX, INT_MIN
+#include <stdlib.h> //exit, EXIT_FAILURE
+#include <unistd.h> //write, STDERR_FILENO
 
 void	print_error_and_exit(char *error_message)
 {

@@ -6,13 +6,13 @@
 /*   By: myoshika <myoshika@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/15 07:11:42 by myoshika          #+#    #+#             */
-/*   Updated: 2023/01/22 08:08:15 by myoshika         ###   ########.fr       */
+/*   Updated: 2024/04/03 21:24:52 by myoshika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/philo_bonus.h"
-#include <sys/time.h>
-#include <stddef.h>
+#include <sys/types.h>
+#include <sys/time.h> //timeval, gettimeofday
 
 long	time_in_ms(void)
 {

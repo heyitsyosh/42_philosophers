@@ -6,17 +6,16 @@
 /*   By: myoshika <myoshika@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/06 23:15:45 by myoshika          #+#    #+#             */
-/*   Updated: 2023/02/03 09:24:12 by myoshika         ###   ########.fr       */
+/*   Updated: 2024/04/03 21:20:29 by myoshika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/philo_bonus.h"
-#include <stdlib.h>
-#include <stdio.h>
-#include <fcntl.h>
-#include <unistd.h>
+#include <stdlib.h> //malloc, free
+#include <fcntl.h> //O_CREAT, O_EXCL
+#include <unistd.h> //fork
 #include <sys/types.h>
-#include <sys/stat.h>
+#include <sys/stat.h> //S_IWUSR
 
 static void	make_semaphore_locks(t_info *info)
 {
