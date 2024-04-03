@@ -6,15 +6,13 @@
 /*   By: myoshika <myoshika@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/22 08:49:07 by myoshika          #+#    #+#             */
-/*   Updated: 2023/02/03 09:31:14 by myoshika         ###   ########.fr       */
+/*   Updated: 2024/04/03 21:17:25 by myoshika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/philo_bonus.h"
-#include <stdio.h>
-#include <unistd.h>
-#include <sys/types.h>
-#include <sys/wait.h>
+#include <stdio.h> //printf
+#include <unistd.h> //usleep
 
 void	make_times_eaten_monitor(t_info *info)
 {
@@ -43,8 +41,6 @@ void	*times_eaten_monitor(void *ptr_to_info)
 	sem_post(info->stop_simulation);
 	return (NULL);
 }
-
-/* ************************************************************************** */
 
 void	make_starvation_monitor(t_philo *philo, t_info *info)
 {

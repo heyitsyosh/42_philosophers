@@ -9,24 +9,31 @@ FILES = main\
 		time_utils\
 		utils_i\
 		utils_ii
+SRCS_DIR = srcs/
+OBJS_DIR = objs/
 SRCS = $(foreach src,$(FILES),./srcs/$(src).c)
-OBJS = $(SRCS:.c=.o)
+OBJS = $(foreach src,$(FILES),./objs/$(src).o)
 
 CFLAGS = -Wall -Wextra -Werror -pthread 
+INCLUDES = -I ./includes
 #-fsanitize=thread -g3
 
 #--------------------------------------------------------------------------#
 
 all: $(NAME)
 
-$(NAME): $(OBJS)
-	$(CC) $(CFLAGS) -o $@ $(OBJS)
+$(OBJS_DIR):
+	mkdir -p $(OBJS_DIR)
 
-%.o: %.c
-	$(CC) $(CFLAGS) -c -o $@ $<
+$(OBJS_DIR)%.o: $(SRCS_DIR)%.c | $(OBJS_DIR)
+	$(CC) $(CFLAGS) $(INCLUDES) -c $< -o $@
+
+$(NAME): $(OBJS)
+	$(CC) $(CFLAGS) $(INCLUDES) -o $@ $(OBJS)
 
 clean:
 	$(RM) $(OBJS)
+	rm -rf $(OBJS_DIR)
 
 fclean: clean
 	$(RM) $(NAME)

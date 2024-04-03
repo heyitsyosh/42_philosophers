@@ -6,16 +6,15 @@
 /*   By: myoshika <myoshika@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/27 00:43:46 by myoshika          #+#    #+#             */
-/*   Updated: 2023/02/03 09:23:54 by myoshika         ###   ########.fr       */
+/*   Updated: 2024/04/03 21:23:20 by myoshika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/philo_bonus.h"
-#include <stdio.h>
-#include <unistd.h>
-#include <signal.h>
+#include <stdio.h> //printf
+#include <signal.h> //kill, SIGINT
 #include <sys/types.h>
-#include <sys/wait.h>
+#include <sys/wait.h> //waitpid
 
 void	make_stop_simulation_monitor(t_info *info)
 {
