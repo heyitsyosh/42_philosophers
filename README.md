@@ -7,8 +7,8 @@ This project is about learning how threads work by precisely timing a group of p
 
 ## Description:
 Simulation of the famous [Dining Philosophers Problem](https://en.wikipedia.org/wiki/Dining_philosophers_problem).  
-In `philo` implementation, philosophers are represented as **threads**, and forks are represented as **mutexes**.  
-In `philo_bonus` implementation, philosophers are represented as **processes**, and forks are represented as **semphores**.  
+In `philo` implementation, philosophers are represented as **threads** and forks as **mutexes**.  
+In `philo_bonus` implementation, philosophers are represented as **processes** and forks as **semphores**.  
 
 The actions of the philosophers are shown in a log with timestamps.  
 If a philosopher dies, the program terminates after printing the death log.  
