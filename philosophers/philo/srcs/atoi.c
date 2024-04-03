@@ -6,12 +6,12 @@
 /*   By: myoshika <myoshika@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/31 14:47:37 by myoshika          #+#    #+#             */
-/*   Updated: 2023/01/31 14:48:31 by myoshika         ###   ########.fr       */
+/*   Updated: 2024/04/03 20:48:57 by myoshika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/philo.h"
-#include <limits.h>
+#include <limits.h> //INT_MAX, INT_MIN
 
 static int	make_int(const char *str, size_t i, int sign, t_info *info)
 {

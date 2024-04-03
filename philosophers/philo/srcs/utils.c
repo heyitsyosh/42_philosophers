@@ -6,14 +6,14 @@
 /*   By: myoshika <myoshika@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/06 19:48:58 by myoshika          #+#    #+#             */
-/*   Updated: 2023/02/02 23:11:49 by myoshika         ###   ########.fr       */
+/*   Updated: 2024/04/03 21:01:41 by myoshika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/philo.h"
-#include <stdio.h>
-#include <limits.h>
-#include <unistd.h>
+#include <stdio.h> //printf
+#include <limits.h> //INT_MAX
+#include <unistd.h> //usleep, write
 
 void	set_start_time(t_philo *philo, t_info *i)
 {
