@@ -6,13 +6,13 @@
 /*   By: myoshika <myoshika@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/11 21:13:49 by myoshika          #+#    #+#             */
-/*   Updated: 2023/01/31 14:54:52 by myoshika         ###   ########.fr       */
+/*   Updated: 2024/04/03 20:59:42 by myoshika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/philo.h"
-#include <stdio.h>
-#include <unistd.h>
+#include <stdio.h> //printf
+#include <unistd.h> //usleep, STDERR_FILENO
 
 void	make_and_join_monitor(t_philo *philos, t_info *info)
 {

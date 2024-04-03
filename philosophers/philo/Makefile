@@ -8,21 +8,32 @@ FILES = main\
 		time_utils\
 		utils\
 		atoi
+SRCS_DIR = srcs/
+OBJS_DIR = objs/
 SRCS = $(foreach src,$(FILES),./srcs/$(src).c)
-OBJS = $(SRCS:.c=.o)
+OBJS = $(foreach src,$(FILES),./objs/$(src).o)
 
-CFLAGS = -Wall -Wextra -Werror -pthread -I ./includes 
+
+CFLAGS = -Wall -Wextra -Werror -pthread
+INCLUDES = -I ./includes
 #-fsanitize=thread -g3
 
 #--------------------------------------------------------------------------#
 
 all: $(NAME)
 
+$(OBJS_DIR):
+	mkdir -p $(OBJS_DIR)
+
+$(OBJS_DIR)%.o: $(SRCS_DIR)%.c | $(OBJS_DIR)
+	$(CC) $(CFLAGS) $(INCLUDES) -c $< -o $@
+
 $(NAME): $(OBJS)
-	$(CC) $(CFLAGS) -o $@ $(OBJS)
+	$(CC) $(CFLAGS) $(INCLUDES) -o $@ $(OBJS)
 
 clean:
-	$(RM) $(OBJS) $(B_OBJS)
+	$(RM) $(OBJS)
+	rm -rf $(OBJS_DIR)
 
 fclean: clean
 	$(RM) $(NAME)

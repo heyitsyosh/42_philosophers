@@ -6,12 +6,12 @@
 /*   By: myoshika <myoshika@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/15 07:11:42 by myoshika          #+#    #+#             */
-/*   Updated: 2023/01/31 14:47:05 by myoshika         ###   ########.fr       */
+/*   Updated: 2024/04/03 21:00:52 by myoshika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/philo.h"
-#include <sys/time.h>
+#include <sys/time.h> //timeval, gettimeofday
 
 long	time_in_ms(void)
 {

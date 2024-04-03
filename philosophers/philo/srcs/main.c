@@ -6,13 +6,13 @@
 /*   By: myoshika <myoshika@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/09 19:04:13 by myoshika          #+#    #+#             */
-/*   Updated: 2023/01/31 14:54:36 by myoshika         ###   ########.fr       */
+/*   Updated: 2024/04/03 21:00:00 by myoshika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/philo.h"
-#include <unistd.h>
-#include <stdlib.h>
+#include <unistd.h> //STDERR_FILENO
+#include <stdlib.h> //free
 
 static void	deinitialize(t_philo *philos, t_info *info)
 {

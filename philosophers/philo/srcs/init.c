@@ -6,13 +6,13 @@
 /*   By: myoshika <myoshika@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/06 23:15:45 by myoshika          #+#    #+#             */
-/*   Updated: 2023/01/31 14:53:41 by myoshika         ###   ########.fr       */
+/*   Updated: 2024/04/03 21:00:18 by myoshika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/philo.h"
-#include <unistd.h>
-#include <stdlib.h>
+#include <unistd.h> //STDERR_FILENO
+#include <stdlib.h> //malloc, free
 
 //left and right fork of last philosopher is flipped for mutex hierarchy
 static void	init_philo(t_philo *philo, t_info *info, int i)
