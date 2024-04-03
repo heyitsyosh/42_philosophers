@@ -23,7 +23,7 @@ In that case, the program terminates after each philosopher eats at least that m
 > Since there aren't enough forks for all philosophers to eat at once, they must take turns.  
 
 ## Set-up:
-First, enter directory with `cd philosophers/philo` or `cd philosophers/philo_bonus`.  
+First, enter directory of choice with `cd philosophers/philo` or `cd philosophers/philo_bonus`.  
 Then use any makefile command.
 
 #### Makefile Commands:
