@@ -12,7 +12,8 @@ In `philo_bonus` implementation, philosophers are represented as **processes** a
 
 The actions of the philosophers are shown in a log with timestamps.  
 If a philosopher dies, the program terminates after printing the death log.  
-If the optional "number of times each philosopher must eat" is specified, the program terminates after each philosopher eats at least that many times.  
+The "number of times each philosopher must eat" can be specified optionally.  
+In that case, the program terminates after each philosopher eats at least that many times.  
 
 > Philosophers sit around a circular table with a fork in between each philosopher.  
 > Philosophers will eat, sleep, and think.  
