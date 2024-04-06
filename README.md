@@ -7,14 +7,15 @@ This project is about learning how threads work by precisely timing a group of p
 
 ## Description:
 Simulation of the famous [Dining Philosophers Problem](https://en.wikipedia.org/wiki/Dining_philosophers_problem).  
-In `philo` implementation, philosophers are represented as **threads**, forks as **mutexes**.  
-In `philo_bonus` implementation, philosophers are represented as **processes**, forks as **semphores**.  
+In `philo` implementation, philosophers are represented as **threads** and forks as **mutexes**.  
+In `philo_bonus` implementation, philosophers are represented as **processes** and forks as **semphores**.  
 
 The actions of the philosophers are shown in a log with timestamps.  
 If a philosopher dies, the program terminates after printing the death log.  
 The "number of times each philosopher must eat" can be specified optionally.  
 In that case, the program terminates after each philosopher eats at least that many times.  
 
+>**Premise**:  
 > Philosophers sit around a circular table with a fork in between each philosopher.  
 > Philosophers will eat, sleep, and think.  
 > A philosopher must eat periodically to stay alive.  
@@ -24,7 +25,7 @@ In that case, the program terminates after each philosopher eats at least that m
 
 ## Set-up:
 First, enter directory of choice with `cd philosophers/philo` or `cd philosophers/philo_bonus`.  
-Then use any makefile command.
+Then use any Makefile command.
 
 #### Makefile Commands:
 ```C
