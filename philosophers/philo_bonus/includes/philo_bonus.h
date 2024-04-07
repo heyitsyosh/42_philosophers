@@ -6,16 +6,16 @@
 /*   By: myoshika <myoshika@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/09 18:43:21 by myoshika          #+#    #+#             */
-/*   Updated: 2023/02/03 04:13:48 by myoshika         ###   ########.fr       */
+/*   Updated: 2024/04/07 22:44:47 by myoshika         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef PHILO_BONUS_H
 # define PHILO_BONUS_H
 
+# include <stdbool.h>
 # include <pthread.h>
 # include <semaphore.h>
-# include <stdbool.h>
 
 # define MAX_PHILOS 200
 
