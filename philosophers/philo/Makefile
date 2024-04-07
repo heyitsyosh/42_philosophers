@@ -1,21 +1,23 @@
-NAME = philo
+NAME := philo
 
-FILES = main\
-		convert_input\
-		init\
-		philosopher\
-		monitor\
-		time_utils\
-		utils\
-		atoi
-SRCS_DIR = srcs/
-OBJS_DIR = objs/
-SRCS = $(foreach src,$(FILES),./srcs/$(src).c)
-OBJS = $(foreach src,$(FILES),./objs/$(src).o)
-
-CFLAGS = -Wall -Wextra -Werror -pthread
+CC := cc
+CFLAGS := -Wall -Wextra -Werror -pthread
 #-fsanitize=thread -g3
-INCLUDES = -I ./includes
+INCLUDES := -I ./includes
+
+SRCS_DIR := srcs
+OBJS_DIR := objs
+
+FILES := main \
+        convert_input \
+        init \
+        philosopher \
+        monitor \
+        time_utils \
+        utils \
+        atoi
+SRCS := $(foreach src, $(FILES), $(SRCS_DIR)/$(src).c)
+OBJS := $(foreach src, $(FILES), $(OBJS_DIR)/$(src).o)
 
 #--------------------------------------------------------------------------#
 
@@ -24,14 +26,13 @@ all: $(NAME)
 $(OBJS_DIR):
 	mkdir -p $(OBJS_DIR)
 
-$(OBJS_DIR)%.o: $(SRCS_DIR)%.c | $(OBJS_DIR)
+$(OBJS_DIR)/%.o: $(SRCS_DIR)/%.c | $(OBJS_DIR)
 	$(CC) $(CFLAGS) $(INCLUDES) -c $< -o $@
 
 $(NAME): $(OBJS)
 	$(CC) $(CFLAGS) $(INCLUDES) -o $@ $(OBJS)
 
 clean:
-	$(RM) $(OBJS)
 	rm -rf $(OBJS_DIR)
 
 fclean: clean
